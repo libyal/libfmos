@@ -27,6 +27,7 @@
 
 #include "libfmos_extern.h"
 #include "libfmos_libcerror.h"
+#include "libfmos_lzfse_bit_stream.h"
 
 #if defined( __cplusplus )
 extern "C" {
@@ -43,31 +44,6 @@ extern "C" {
 
 #define LIBFMOS_LZFSE_NUMBER_OF_D_VALUE_STATES		256
 #define LIBFMOS_LZFSE_NUMBER_OF_D_VALUE_SYMBOLS		64
-
-typedef struct libfmos_lzfse_bit_stream libfmos_lzfse_bit_stream_t;
-
-struct libfmos_lzfse_bit_stream
-{
-	/* The byte stream
-	 */
-	const uint8_t *byte_stream;
-
-	/* The byte stream size
-	 */
-	size_t byte_stream_size;
-
-	/* The byte stream offset
-	 */
-	size_t byte_stream_offset;
-
-	/* The bit buffer
-	 */
-	uint32_t bit_buffer;
-
-	/* The number of bits remaining in the bit buffer
-	 */
-	uint8_t bit_buffer_size;
-};
 
 typedef struct libfmos_lzfse_decoder_entry libfmos_lzfse_decoder_entry_t;
 
@@ -171,27 +147,6 @@ struct libfmos_lzfse_decoder
 	 */
 	libfmos_lzfse_value_decoder_entry_t d_value_decoder_table[ LIBFMOS_LZFSE_NUMBER_OF_D_VALUE_STATES ];
 };
-
-int libfmos_lzfse_bit_stream_initialize(
-     libfmos_lzfse_bit_stream_t **bit_stream,
-     const uint8_t *byte_stream,
-     size_t byte_stream_size,
-     libcerror_error_t **error );
-
-int libfmos_lzfse_bit_stream_free(
-     libfmos_lzfse_bit_stream_t **bit_stream,
-     libcerror_error_t **error );
-
-int libfmos_lzfse_bit_stream_read(
-     libfmos_lzfse_bit_stream_t *bit_stream,
-     uint8_t number_of_bits,
-     libcerror_error_t **error );
-
-int libfmos_lzfse_bit_stream_get_value(
-     libfmos_lzfse_bit_stream_t *bit_stream,
-     uint8_t number_of_bits,
-     uint32_t *value_32bit,
-     libcerror_error_t **error );
 
 int libfmos_lzfse_decoder_initialize(
      libfmos_lzfse_decoder_t **decoder,

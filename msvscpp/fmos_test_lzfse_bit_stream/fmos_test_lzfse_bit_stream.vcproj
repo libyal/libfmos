@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="fmos_test_lzfse"
-	ProjectGUID="{9E2E8C0E-EC22-447F-A244-FF35AE1EF10D}"
-	RootNamespace="fmos_test_lzfse"
+	Name="fmos_test_lzfse_bit_stream"
+	ProjectGUID="{38917644-CED6-4947-945E-42F9BC4C9E09}"
+	RootNamespace="fmos_test_lzfse_bit_stream"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -176,7 +176,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\tests\fmos_test_lzfse.c"
+				RelativePath="..\..\tests\fmos_test_lzfse_bit_stream.c"
 				>
 			</File>
 		</Filter>

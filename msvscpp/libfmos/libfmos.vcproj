@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="libfmos"
-	ProjectGUID="{991FE69C-EEB7-4613-B10D-6D9757BB3916}"
+	ProjectGUID="{158A49D1-9B9E-4A7E-A1C4-1E8653C10227}"
 	RootNamespace="libfmos"
 	TargetFrameworkVersion="131072"
 	>
@@ -186,6 +186,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libfmos\libfmos_lzfse_bit_stream.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libfmos\libfmos_lzvn.c"
 				>
 			</File>
@@ -229,6 +233,10 @@
 			</File>
 			<File
 				RelativePath="..\..\libfmos\libfmos_lzfse.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libfmos\libfmos_lzfse_bit_stream.h"
 				>
 			</File>
 			<File

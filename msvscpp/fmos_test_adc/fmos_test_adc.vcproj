@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="fmos_test_adc"
-	ProjectGUID="{86D4E3FA-0CF2-4479-B5A7-EFA7B669DAC6}"
+	ProjectGUID="{E37E947F-C19D-4F24-9F2A-910E80B279E5}"
 	RootNamespace="fmos_test_adc"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"

@@ -27,6 +27,7 @@
 #include "libfmos_libcerror.h"
 #include "libfmos_libcnotify.h"
 #include "libfmos_lzfse.h"
+#include "libfmos_lzfse_bit_stream.h"
 #include "libfmos_lzvn.h"
 
 #define LIBFMOS_LZFSE_ENDOFSTREAM_BLOCK_MARKER		0x24787662UL
@@ -82,275 +83,6 @@ const int32_t libfmos_lzfse_m_value_base_table[ LIBFMOS_LZFSE_NUMBER_OF_M_VALUE_
 #define libfmos_lzfse_count_leading_zeros( value ) \
 	__builtin_clz( (unsigned int) value )
 #endif
-
-/* Creates a bit stream
- * Make sure the value bit_stream is referencing, is set to NULL
- * Returns 1 if successful or -1 on error
- */
-int libfmos_lzfse_bit_stream_initialize(
-     libfmos_lzfse_bit_stream_t **bit_stream,
-     const uint8_t *byte_stream,
-     size_t byte_stream_size,
-     libcerror_error_t **error )
-{
-	static char *function = "libfmos_lzfse_bit_stream_initialize";
-
-	if( bit_stream == NULL )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid bit stream.",
-		 function );
-
-		return( -1 );
-	}
-	if( *bit_stream != NULL )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
-		 "%s: invalid bit stream value already set.",
-		 function );
-
-		return( -1 );
-	}
-	if( byte_stream == NULL )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid byte stream.",
-		 function );
-
-		return( -1 );
-	}
-	if( byte_stream_size > (size_t) SSIZE_MAX )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
-		 "%s: invalid byte stream size value exceeds maximum.",
-		 function );
-
-		return( -1 );
-	}
-	*bit_stream = memory_allocate_structure(
-	               libfmos_lzfse_bit_stream_t );
-
-	if( *bit_stream == NULL )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_MEMORY,
-		 LIBCERROR_MEMORY_ERROR_INSUFFICIENT,
-		 "%s: unable to create bit stream.",
-		 function );
-
-		goto on_error;
-	}
-	if( memory_set(
-	     *bit_stream,
-	     0,
-	     sizeof( libfmos_lzfse_bit_stream_t ) ) == NULL )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_MEMORY,
-		 LIBCERROR_MEMORY_ERROR_SET_FAILED,
-		 "%s: unable to clear bit stream.",
-		 function );
-
-		goto on_error;
-	}
-	( *bit_stream )->byte_stream        = byte_stream;
-	( *bit_stream )->byte_stream_size   = byte_stream_size;
-	( *bit_stream )->byte_stream_offset = byte_stream_size;
-
-	return( 1 );
-
-on_error:
-	if( *bit_stream != NULL )
-	{
-		memory_free(
-		 *bit_stream );
-
-		*bit_stream = NULL;
-	}
-	return( -1 );
-}
-
-/* Frees a bit stream
- * Returns 1 if successful or -1 on error
- */
-int libfmos_lzfse_bit_stream_free(
-     libfmos_lzfse_bit_stream_t **bit_stream,
-     libcerror_error_t **error )
-{
-	static char *function = "libfmos_lzfse_bit_stream_free";
-
-	if( bit_stream == NULL )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid bit stream.",
-		 function );
-
-		return( -1 );
-	}
-	if( *bit_stream != NULL )
-	{
-		memory_free(
-		 *bit_stream );
-
-		*bit_stream = NULL;
-	}
-	return( 1 );
-}
-
-/* Reads bits from the underlying byte stream
- * Returns 1 on success, 0 if no more bits are available or -1 on error
- */
-int libfmos_lzfse_bit_stream_read(
-     libfmos_lzfse_bit_stream_t *bit_stream,
-     uint8_t number_of_bits,
-     libcerror_error_t **error )
-{
-	static char *function = "libfmos_lzfse_bit_stream_read";
-	int result            = 0;
-
-	if( bit_stream == NULL )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid bit stream.",
-		 function );
-
-		return( -1 );
-	}
-	if( ( number_of_bits == 0 )
-	 || ( number_of_bits > 32 ) )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: number of bits value out of bounds.",
-		 function );
-
-		return( -1 );
-	}
-	while( bit_stream->bit_buffer_size < number_of_bits )
-	{
-		if( bit_stream->byte_stream_offset == 0 )
-		{
-			break;
-		}
-		bit_stream->byte_stream_offset -= 1;
-		bit_stream->bit_buffer        <<= 8;
-		bit_stream->bit_buffer         |= bit_stream->byte_stream[ bit_stream->byte_stream_offset ];
-		bit_stream->bit_buffer_size    += 8;
-
-		result = 1;
-	}
-	return( result );
-}
-
-/* Retrieves a value from the bit stream
- * Returns 1 on success or -1 on error
- */
-int libfmos_lzfse_bit_stream_get_value(
-     libfmos_lzfse_bit_stream_t *bit_stream,
-     uint8_t number_of_bits,
-     uint32_t *value_32bit,
-     libcerror_error_t **error )
-{
-	static char *function             = "libfmos_lzfse_bit_stream_get_value";
-	uint32_t safe_value_32bit         = 0;
-	uint8_t remaining_bit_buffer_size = 0;
-
-	if( bit_stream == NULL )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid bit stream.",
-		 function );
-
-		return( -1 );
-	}
-	if( number_of_bits > (uint8_t) 32 )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
-		 "%s: invalid number of bits value exceeds maximum.",
-		 function );
-
-		return( -1 );
-	}
-	if( value_32bit == NULL )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid 32-bit value.",
-		 function );
-
-		return( -1 );
-	}
-	if( number_of_bits == 0 )
-	{
-		*value_32bit = 0;
-
-		return( 1 );
-	}
-	if( bit_stream->bit_buffer_size < number_of_bits )
-	{
-		if( libfmos_lzfse_bit_stream_read(
-		     bit_stream,
-		     number_of_bits,
-		     error ) != 1 )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_IO,
-			 LIBCERROR_IO_ERROR_READ_FAILED,
-			 "%s: unable to read bits.",
-			 function );
-
-			return( -1 );
-		}
-	}
-	safe_value_32bit = bit_stream->bit_buffer;
-
-	if( number_of_bits < 32 )
-	{
-		bit_stream->bit_buffer_size -= number_of_bits;
-		safe_value_32bit           >>= bit_stream->bit_buffer_size;
-		remaining_bit_buffer_size    = 32 - bit_stream->bit_buffer_size;
-		bit_stream->bit_buffer      &= 0xffffffffUL >> remaining_bit_buffer_size;
-	}
-	else
-	{
-		bit_stream->bit_buffer      = 0;
-		bit_stream->bit_buffer_size = 0;
-	}
-	*value_32bit = safe_value_32bit;
-
-	return( 1 );
-}
 
 /* Creates a decoder
  * Make sure the value decoder is referencing, is set to NULL
@@ -466,16 +198,16 @@ int libfmos_lzfse_build_decoder_table(
      libcerror_error_t **error )
 {
 	libfmos_lzfse_decoder_entry_t *decoder_entry = NULL;
-	static char *function                         = "libfmos_lzfse_build_decoder_table";
-	uint16_t symbol                               = 0;
-	int16_t delta                                 = 0;
-	int base_decoder_weight                       = 0;
-	int decoder_weight                            = 0;
-	int decoder_table_index                       = 0;
-	int frequency                                 = 0;
-	int number_of_bits                            = 0;
-	int number_of_leading_zeros                   = 0;
-	int sum_of_frequencies                        = 0;
+	static char *function                        = "libfmos_lzfse_build_decoder_table";
+	uint16_t symbol                              = 0;
+	int16_t delta                                = 0;
+	int base_decoder_weight                      = 0;
+	int decoder_weight                           = 0;
+	int decoder_table_index                      = 0;
+	int frequency                                = 0;
+	int number_of_bits                           = 0;
+	int number_of_leading_zeros                  = 0;
+	int sum_of_frequencies                       = 0;
 
 	if( number_of_symbols > 256 )
 	{
@@ -579,18 +311,18 @@ int libfmos_lzfse_build_value_decoder_table(
      libcerror_error_t **error )
 {
 	libfmos_lzfse_value_decoder_entry_t *value_decoder_entry = NULL;
-	static char *function                                     = "libfmos_lzfse_build_value_decoder_table";
-	int32_t value_base                                        = 0;
-	uint16_t symbol                                           = 0;
-	int16_t delta                                             = 0;
-	uint8_t value_bits                                        = 0;
-	int base_decoder_weight                                   = 0;
-	int decoder_weight                                        = 0;
-	int decoder_table_index                                   = 0;
-	int frequency                                             = 0;
-	int number_of_bits                                        = 0;
-	int number_of_leading_zeros                               = 0;
-	int sum_of_frequencies                                    = 0;
+	static char *function                                    = "libfmos_lzfse_build_value_decoder_table";
+	int32_t value_base                                       = 0;
+	uint16_t symbol                                          = 0;
+	int16_t delta                                            = 0;
+	uint8_t value_bits                                       = 0;
+	int base_decoder_weight                                  = 0;
+	int decoder_weight                                       = 0;
+	int decoder_table_index                                  = 0;
+	int frequency                                            = 0;
+	int number_of_bits                                       = 0;
+	int number_of_leading_zeros                              = 0;
+	int sum_of_frequencies                                   = 0;
 
 	if( number_of_symbols > 256 )
 	{
@@ -725,7 +457,7 @@ int libfmos_lzfse_read_block_v1_header(
 	uint32_t literal_bits              = 0;
 	uint32_t lmd_values_bits           = 0;
 	uint16_t table_index               = 0;
-	uint8_t literal_decoder_index        = 0;
+	uint8_t literal_decoder_index      = 0;
 
 	if( decoder == NULL )
 	{
@@ -995,7 +727,7 @@ int libfmos_lzfse_read_block_v2_header(
 
 #if defined( HAVE_DEBUG_OUTPUT )
 	uint16_t table_index               = 0;
-	uint8_t literal_decoder_index        = 0;
+	uint8_t literal_decoder_index      = 0;
 #endif
 
 	if( decoder == NULL )
@@ -1566,11 +1298,11 @@ int libfmos_lzfse_read_literal_values(
 	uint16_t literal_states[ 4 ];
 
 	libfmos_lzfse_decoder_entry_t *decoder_entry = NULL;
-	static char *function                         = "libfmos_lzfse_read_literal_values";
-	uint32_t value_32bit                          = 0;
-	int32_t literal_value_index                   = 0;
-	int32_t literal_state                         = 0;
-	uint8_t literal_decoder_index                 = 0;
+	static char *function                        = "libfmos_lzfse_read_literal_values";
+	uint32_t value_32bit                         = 0;
+	int32_t literal_value_index                  = 0;
+	int32_t literal_state                        = 0;
+	uint8_t literal_decoder_index                = 0;
 
 	if( decoder == NULL )
 	{
@@ -1663,21 +1395,21 @@ int libfmos_lzfse_read_lmd_values(
      libcerror_error_t **error )
 {
 	libfmos_lzfse_value_decoder_entry_t *value_decoder_entry = NULL;
-	static char *function                                     = "libfmos_lzfse_read_lmd_values";
-	size_t safe_uncompressed_data_offset                      = 0;
-	size_t remaining_uncompressed_data_size                   = 0;
-	uint32_t lmd_value_index                                  = 0;
-	uint32_t value_32bit                                      = 0;
-	int32_t d_value                                           = -1;
-	int32_t d_value_state                                     = 0;
-	int32_t l_value                                           = 0;
-	int32_t l_value_index                                     = 0;
-	int32_t l_value_state                                     = 0;
-	int32_t literal_value_index                               = 0;
-	int32_t m_value                                           = 0;
-	int32_t m_value_index                                     = 0;
-	int32_t m_value_state                                     = 0;
-	int32_t safe_d_value                                      = 0;
+	static char *function                                    = "libfmos_lzfse_read_lmd_values";
+	size_t safe_uncompressed_data_offset                     = 0;
+	size_t remaining_uncompressed_data_size                  = 0;
+	uint32_t lmd_value_index                                 = 0;
+	uint32_t value_32bit                                     = 0;
+	int32_t d_value                                          = -1;
+	int32_t d_value_state                                    = 0;
+	int32_t l_value                                          = 0;
+	int32_t l_value_index                                    = 0;
+	int32_t l_value_state                                    = 0;
+	int32_t literal_value_index                              = 0;
+	int32_t m_value                                          = 0;
+	int32_t m_value_index                                    = 0;
+	int32_t m_value_state                                    = 0;
+	int32_t safe_d_value                                     = 0;
 
 	if( decoder == NULL )
 	{
@@ -1961,7 +1693,7 @@ int libfmos_lzfse_decompress(
 {
 	uint16_t frequency_table[ 360 ];
 
-	libfmos_lzfse_decoder_t *decoder   = NULL;
+	libfmos_lzfse_decoder_t *decoder    = NULL;
 	static char *function               = "libfmos_lzfse_decompress";
 	size_t compressed_data_offset       = 0;
 	size_t safe_uncompressed_block_size = 0;

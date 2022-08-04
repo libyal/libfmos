@@ -22,6 +22,7 @@ check_PROGRAMS = \
 	fmos_test_adc \
 	fmos_test_error \
 	fmos_test_lzfse \
+	fmos_test_lzfse_bit_stream \
 	fmos_test_lzvn \
 	fmos_test_notify \
 	fmos_test_support
@@ -57,6 +58,19 @@ fmos_test_lzfse_SOURCES = \
 	fmos_test_unused.h
 
 fmos_test_lzfse_LDADD = \
+	@LIBCNOTIFY_LIBADD@ \
+	../libfmos/libfmos.la \
+	@LIBCERROR_LIBADD@
+
+fmos_test_lzfse_bit_stream_SOURCES = \
+	fmos_test_lzfse_bit_stream.c \
+	fmos_test_libcerror.h \
+	fmos_test_libcnotify.h \
+	fmos_test_libfmos.h \
+	fmos_test_macros.h \
+	fmos_test_unused.h
+
+fmos_test_lzfse_bit_stream_LDADD = \
 	@LIBCNOTIFY_LIBADD@ \
 	../libfmos/libfmos.la \
 	@LIBCERROR_LIBADD@
