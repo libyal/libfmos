@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="fmos_test_error"
-	ProjectGUID="{68E5E0E9-057A-4F58-B62C-EB1FF1AA8253}"
+	ProjectGUID="{7B7D198F-311D-4F9D-969E-F1C2B9D51C84}"
 	RootNamespace="fmos_test_error"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"

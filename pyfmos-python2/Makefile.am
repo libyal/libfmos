@@ -19,6 +19,8 @@ BUILT_SOURCES = \
 	pyfmos_error.c pyfmos_error.h \
 	pyfmos_libcerror.h \
 	pyfmos_libfmos.h \
+	pyfmos_lzfse.c pyfmos_lzfse.h \
+	pyfmos_lzvn.c pyfmos_lzvn.h \
 	pyfmos_python.h \
 	pyfmos_unused.h
 

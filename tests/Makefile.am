@@ -18,6 +18,8 @@ endif
 
 check_SCRIPTS = \
 	pyfmos_test_adc.py \
+	pyfmos_test_lzfse.py \
+	pyfmos_test_lzvn.py \
 	pyfmos_test_support.py \
 	test_library.sh \
 	test_manpage.sh \

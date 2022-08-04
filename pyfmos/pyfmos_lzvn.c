@@ -1,5 +1,5 @@
 /*
- * ADC (un)compression functions
+ * LZVN (un)compression functions
  *
  * Copyright (C) 2019-2022, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -22,16 +22,16 @@
 #include <common.h>
 #include <types.h>
 
-#include "pyfmos_adc.h"
 #include "pyfmos_error.h"
 #include "pyfmos_libcerror.h"
 #include "pyfmos_libfmos.h"
+#include "pyfmos_lzvn.h"
 #include "pyfmos_python.h"
 
-/* Decompresses data using ADC compression
+/* Decompresses data using LZVN compression
  * Returns a Python object if successful or NULL on error
  */
-PyObject *pyfmos_adc_decompress(
+PyObject *pyfmos_lzvn_decompress(
            PyObject *self,
            PyObject *arguments,
            PyObject *keywords )
@@ -39,7 +39,7 @@ PyObject *pyfmos_adc_decompress(
 	libcerror_error_t *error                  = NULL;
 	PyObject *compressed_data_string_object   = NULL;
 	PyObject *uncompressed_data_string_object = NULL;
-	static char *function                     = "pyfmos_adc_decompress";
+	static char *function                     = "pyfmos_lzvn_decompress";
 	static char *keyword_list[]               = { "compressed_data", "uncompressed_data_size", NULL };
 	char *compressed_data                     = NULL;
 	char *uncompressed_data                   = NULL;
@@ -122,7 +122,7 @@ PyObject *pyfmos_adc_decompress(
 
 	Py_BEGIN_ALLOW_THREADS
 
-	result = libfmos_adc_decompress(
+	result = libfmos_lzvn_decompress(
 	          (uint8_t *) compressed_data,
 	          (size_t) compressed_data_size,
 	          (uint8_t *) uncompressed_data,

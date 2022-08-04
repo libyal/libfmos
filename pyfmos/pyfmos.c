@@ -32,6 +32,8 @@
 #include "pyfmos_error.h"
 #include "pyfmos_libcerror.h"
 #include "pyfmos_libfmos.h"
+#include "pyfmos_lzfse.h"
+#include "pyfmos_lzvn.h"
 #include "pyfmos_python.h"
 #include "pyfmos_unused.h"
 
@@ -51,6 +53,20 @@ PyMethodDef pyfmos_module_methods[] = {
 	  "adc_decompress(compressed_data, uncompressed_data_size) -> Bytes\n"
 	  "\n"
 	  "Decompresses data using ADC compression." },
+
+	{ "lzfse_decompress",
+	  (PyCFunction) pyfmos_lzfse_decompress,
+	  METH_VARARGS | METH_KEYWORDS,
+	  "lzfse_decompress(compressed_data, uncompressed_data_size) -> Bytes\n"
+	  "\n"
+	  "Decompresses data using LZFSE compression." },
+
+	{ "lzvn_decompress",
+	  (PyCFunction) pyfmos_lzvn_decompress,
+	  METH_VARARGS | METH_KEYWORDS,
+	  "lzvn_decompress(compressed_data, uncompressed_data_size) -> Bytes\n"
+	  "\n"
+	  "Decompresses data using LZVN compression." },
 
 	/* Sentinel */
 	{ NULL, NULL, 0, NULL }

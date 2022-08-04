@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="pyfmos"
-	ProjectGUID="{EB8035F9-8715-4053-8063-96873355EC5A}"
+	ProjectGUID="{0899457D-69C0-46E3-A510-90B84E2F72CA}"
 	RootNamespace="pyfmos"
 	TargetFrameworkVersion="131072"
 	>
@@ -181,6 +181,14 @@
 				RelativePath="..\..\pyfmos\pyfmos_error.c"
 				>
 			</File>
+			<File
+				RelativePath="..\..\pyfmos\pyfmos_lzfse.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\pyfmos\pyfmos_lzvn.c"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -205,6 +213,14 @@
 			</File>
 			<File
 				RelativePath="..\..\pyfmos\pyfmos_libfmos.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\pyfmos\pyfmos_lzfse.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\pyfmos\pyfmos_lzvn.h"
 				>
 			</File>
 			<File
