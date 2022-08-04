@@ -1,0 +1,74 @@
+Name: libfmos
+Version: @VERSION@
+Release: 1
+Summary: Library to support common Mac OS specific formats
+Group: System Environment/Libraries
+License: LGPLv3+
+Source: %{name}-%{version}.tar.gz
+URL: https://github.com/libyal/libfmos
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+@libfmos_spec_requires@ @ax_libcerror_spec_requires@ @ax_libcnotify_spec_requires@ @ax_libcthreads_spec_requires@
+BuildRequires: gcc @ax_libcerror_spec_build_requires@ @ax_libcnotify_spec_build_requires@ @ax_libcthreads_spec_build_requires@
+
+%description -n libfmos
+Library to support common Mac OS specific formats
+
+%package -n libfmos-static
+Summary: Library to support common Mac OS specific formats
+Group: Development/Libraries
+Requires: libfmos = %{version}-%{release}
+
+%description -n libfmos-static
+Static library version of libfmos.
+
+%package -n libfmos-devel
+Summary: Header files and libraries for developing applications for libfmos
+Group: Development/Libraries
+Requires: libfmos = %{version}-%{release}
+
+%description -n libfmos-devel
+Header files and libraries for developing applications for libfmos.
+
+%prep
+%setup -q
+
+%build
+%configure --prefix=/usr --libdir=%{_libdir} --mandir=%{_mandir}
+make %{?_smp_mflags}
+
+%install
+rm -rf %{buildroot}
+%make_install
+
+%clean
+rm -rf %{buildroot}
+
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
+%files -n libfmos
+%defattr(644,root,root,755)
+%license COPYING COPYING.LESSER
+%doc AUTHORS README
+%attr(755,root,root) %{_libdir}/*.so.*
+
+%files -n libfmos-static
+%defattr(644,root,root,755)
+%license COPYING COPYING.LESSER
+%doc AUTHORS README
+%attr(755,root,root) %{_libdir}/*.a
+
+%files -n libfmos-devel
+%defattr(644,root,root,755)
+%license COPYING COPYING.LESSER
+%doc AUTHORS README
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/libfmos.pc
+%{_includedir}/*
+%{_mandir}/man3/*
+
+%changelog
+* @SPEC_DATE@ Joachim Metz <joachim.metz@gmail.com> @VERSION@-1
+- Auto-generated
+

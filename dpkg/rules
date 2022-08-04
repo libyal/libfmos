@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment for debhelper verbose output.
+# export DH_VERBOSE=1
+
+export SKIP_PYTHON_TESTS=1
+
+%:
+	dh $@ --buildsystem=autoconf --with=autoreconf
+
+.PHONY: override_dh_auto_configure
+override_dh_auto_configure:
+	dh_auto_configure -- CFLAGS="-g"
+
+.PHONY: override_dh_strip
+override_dh_strip:
+ifeq (,$(filter nostrip,$(DEB_BUILD_OPTIONS)))
+	dh_strip -plibfmos --dbg-package=libfmos-dbg
+endif
+

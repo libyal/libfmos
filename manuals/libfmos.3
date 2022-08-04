@@ -1,0 +1,68 @@
+.Dd August  4, 2022
+.Dt libfmos 3
+.Os libfmos
+.Sh NAME
+.Nm libfmos.h
+.Nd Library to support common Mac OS specific formats
+.Sh SYNOPSIS
+.In libfmos.h
+.Pp
+Support functions
+.Ft const char *
+.Fn libfmos_get_version "void"
+.Pp
+Notify functions
+.Ft void
+.Fn libfmos_notify_set_verbose "int verbose"
+.Ft int
+.Fn libfmos_notify_set_stream "FILE *stream" "libfmos_error_t **error"
+.Ft int
+.Fn libfmos_notify_stream_open "const char *filename" "libfmos_error_t **error"
+.Ft int
+.Fn libfmos_notify_stream_close "libfmos_error_t **error"
+.Pp
+Error functions
+.Ft void
+.Fn libfmos_error_free "libfmos_error_t **error"
+.Ft int
+.Fn libfmos_error_fprint "libfmos_error_t *error" "FILE *stream"
+.Ft int
+.Fn libfmos_error_sprint "libfmos_error_t *error" "char *string" "size_t size"
+.Ft int
+.Fn libfmos_error_backtrace_fprint "libfmos_error_t *error" "FILE *stream"
+.Ft int
+.Fn libfmos_error_backtrace_sprint "libfmos_error_t *error" "char *string" "size_t size"
+.Pp
+ADC functions
+.Ft int
+.Fn libfmos_adc_decompress "const uint8_t *compressed_data" "size_t compressed_data_size" "uint8_t *uncompressed_data" "size_t *uncompressed_data_size" "libfmos_error_t **error"
+.Pp
+LZFSE functions
+.Ft int
+.Fn libfmos_lzfse_decompress "const uint8_t *compressed_data" "size_t compressed_data_size" "uint8_t *uncompressed_data" "size_t *uncompressed_data_size" "libfmos_error_t **error"
+.Pp
+LZVN functions
+.Ft int
+.Fn libfmos_zlvn_decompress "const uint8_t *compressed_data" "size_t compressed_data_size" "uint8_t *uncompressed_data" "size_t *uncompressed_data_size" "libfmos_error_t **error"
+.Sh DESCRIPTION
+The
+.Fn libfmos_get_version
+function is used to retrieve the library version.
+.Sh RETURN VALUES
+Most of the functions return NULL or \-1 on error, dependent on the return type.
+For the actual return values see "libfmos.h".
+.Sh ENVIRONMENT
+None
+.Sh FILES
+None
+.Sh BUGS
+Please report bugs of any kind on the project issue tracker: https://github.com/libyal/libfmos/issues
+.Sh AUTHOR
+These man pages are generated from "libfmos.h".
+.Sh COPYRIGHT
+Copyright (C) 2019-2022, Joachim Metz <joachim.metz@gmail.com>.
+.sp
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+.Sh SEE ALSO
+the libfmos.h include file

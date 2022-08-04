@@ -1,0 +1,32 @@
+Source: libfmos
+Priority: extra
+Maintainer: Joachim Metz <joachim.metz@gmail.com>
+Build-Depends: debhelper (>= 9), dh-autoreconf, pkg-config
+Standards-Version: 4.1.4
+Section: libs
+Homepage: https://github.com/libyal/libfmos
+Vcs-Git: https://github.com/libyal/libfmos.git
+
+Package: libfmos
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libfmos1
+Replaces: libfmos1
+Suggests: libfmos-dbg
+Description: Library to support common Mac OS specific formats
+ libfmos is a library to support common Mac OS specific formats.
+
+Package: libfmos-dbg
+Architecture: any
+Section: debug
+Depends: libfmos (= ${binary:Version}), ${misc:Depends}
+Description: Debugging symbols for libfmos
+ Debugging symbols for libfmos.
+
+Package: libfmos-dev
+Section: libdevel
+Architecture: any
+Depends: libfmos (= ${binary:Version}), ${misc:Depends}
+Description: Header files and libraries for developing applications for libfmos
+ Header files and libraries for developing applications for libfmos.
+

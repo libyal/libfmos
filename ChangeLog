@@ -1,0 +1,10 @@
+TODO
+* Add ADC, LZFSE and LZVN compression support
+
+Tests:
+* add LZFSE v1 header test data
+
+20220804
+* see `git log' for more recent change log
+* Created stand-alone version based on libfwnt and assorted
+
