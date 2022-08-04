@@ -7,6 +7,9 @@ SUBDIRS = \
 	libcthreads \
 	libcnotify \
 	libfmos \
+	pyfmos \
+	pyfmos-python2 \
+	pyfmos-python3 \
 	po \
 	manuals \
 	tests \
@@ -30,6 +33,9 @@ GETTEXT_FILES = \
 PKGCONFIG_FILES = \
 	libfmos.pc.in
 
+SETUP_PY_FILES = \
+	setup.py
+
 SPEC_FILES = \
 	libfmos.spec \
 	libfmos.spec.in
@@ -38,6 +44,7 @@ EXTRA_DIST = \
 	$(DPKG_FILES) \
 	$(GETTEXT_FILES) \
 	$(PKGCONFIG_FILES) \
+	$(SETUP_PY_FILES) \
 	$(SPEC_FILES)
 
 MAINTAINERCLEANFILES = \

@@ -72,6 +72,22 @@ AX_LIBCNOTIFY_CHECK_ENABLE
 dnl Check if libfmos required headers and functions are available
 AX_LIBFMOS_CHECK_LOCAL
 
+dnl Check if libfmos Python bindings (pyfmos) required headers and functions are available
+AX_PYTHON_CHECK_ENABLE
+
+AS_IF(
+  [test "x${ac_cv_enable_python}" != xno || test "x${ac_cv_enable_python2}" != xno || test "x${ac_cv_enable_python3}" != xno],
+  [dnl Headers included in pyfmos/pyfmos_error.c
+  AC_CHECK_HEADERS([stdarg.h varargs.h])
+
+  AS_IF(
+    [test "x$ac_cv_header_stdarg_h" != xyes && test "x$ac_cv_header_varargs_h" != xyes],
+    [AC_MSG_FAILURE(
+      [Missing headers: stdarg.h and varargs.h],
+      [1])
+    ])
+  ])
+
 dnl Check if DLL support is needed
 AX_LIBFMOS_CHECK_DLL_SUPPORT
 
@@ -108,6 +124,9 @@ AC_CONFIG_FILES([libcerror/Makefile])
 AC_CONFIG_FILES([libcthreads/Makefile])
 AC_CONFIG_FILES([libcnotify/Makefile])
 AC_CONFIG_FILES([libfmos/Makefile])
+AC_CONFIG_FILES([pyfmos/Makefile])
+AC_CONFIG_FILES([pyfmos-python2/Makefile])
+AC_CONFIG_FILES([pyfmos-python3/Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([po/Makevars])
 AC_CONFIG_FILES([manuals/Makefile])
@@ -139,6 +158,7 @@ Building:
 
 Features:
    Multi-threading support: $ac_cv_libcthreads_multi_threading
+   Python (pyfmos) support: $ac_cv_enable_python
    Verbose output:          $ac_cv_enable_verbose_output
    Debug output:            $ac_cv_enable_debug_output
 ]);

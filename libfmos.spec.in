@@ -29,11 +29,20 @@ Requires: libfmos = %{version}-%{release}
 %description -n libfmos-devel
 Header files and libraries for developing applications for libfmos.
 
+%package -n libfmos-python3
+Summary: Python 3 bindings for libfmos
+Group: System Environment/Libraries
+Requires: libfmos = %{version}-%{release} python3
+BuildRequires: python3-devel
+
+%description -n libfmos-python3
+Python 3 bindings for libfmos
+
 %prep
 %setup -q
 
 %build
-%configure --prefix=/usr --libdir=%{_libdir} --mandir=%{_mandir}
+%configure --prefix=/usr --libdir=%{_libdir} --mandir=%{_mandir} --enable-python3
 make %{?_smp_mflags}
 
 %install
@@ -67,6 +76,13 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/libfmos.pc
 %{_includedir}/*
 %{_mandir}/man3/*
+
+%files -n libfmos-python3
+%defattr(644,root,root,755)
+%license COPYING COPYING.LESSER
+%doc AUTHORS README
+%{_libdir}/python3*/site-packages/*.a
+%{_libdir}/python3*/site-packages/*.so
 
 %changelog
 * @SPEC_DATE@ Joachim Metz <joachim.metz@gmail.com> @VERSION@-1

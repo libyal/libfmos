@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="fmos_test_lzvn"
-	ProjectGUID="{587261BE-A21F-44C8-A616-122EF9877809}"
+	ProjectGUID="{C3D6EEF0-9971-4521-BD1B-18A317999BE2}"
 	RootNamespace="fmos_test_lzvn"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"

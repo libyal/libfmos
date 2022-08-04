@@ -8,11 +8,19 @@ AM_CPPFLAGS = \
 	@LIBFMOS_DLL_IMPORT@
 
 TESTS = \
-	test_library.sh
+	test_library.sh \
+	$(TESTS_PYFMOS)
+
+if HAVE_PYTHON_TESTS
+TESTS_PYFMOS = \
+	test_python_module.sh
+endif
 
 check_SCRIPTS = \
+	pyfmos_test_support.py \
 	test_library.sh \
 	test_manpage.sh \
+	test_python_module.sh \
 	test_runner.sh
 
 EXTRA_DIST = \

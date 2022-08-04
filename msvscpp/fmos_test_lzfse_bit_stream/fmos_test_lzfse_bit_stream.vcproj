@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="fmos_test_lzfse_bit_stream"
-	ProjectGUID="{2C5D0058-5778-424A-BF68-10351B32897D}"
+	ProjectGUID="{3997AC61-C144-49FC-9F3B-BD0159852D68}"
 	RootNamespace="fmos_test_lzfse_bit_stream"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"

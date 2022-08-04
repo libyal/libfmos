@@ -11,6 +11,7 @@ MSVSCPP_FILES = \
 	libcnotify/libcnotify.vcproj \
 	libcthreads/libcthreads.vcproj \
 	libfmos/libfmos.vcproj \
+	pyfmos/pyfmos.vcproj \
 	libfmos.sln
 
 EXTRA_DIST = \

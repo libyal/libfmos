@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="libfmos"
-	ProjectGUID="{F64B0BD7-3212-482F-AE18-C9D4BDDE9946}"
+	ProjectGUID="{30DE161A-DCAC-49FD-BDDA-8894CAC948BC}"
 	RootNamespace="libfmos"
 	TargetFrameworkVersion="131072"
 	>
