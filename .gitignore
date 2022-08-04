@@ -128,6 +128,7 @@ stamp-h[1-9]
 /tests/fmos_test_error
 /tests/fmos_test_lzfse
 /tests/fmos_test_lzfse_bit_stream
+/tests/fmos_test_lzfse_decoder
 /tests/fmos_test_lzvn
 /tests/fmos_test_notify
 /tests/fmos_test_support

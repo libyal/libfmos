@@ -7,7 +7,7 @@ EXIT_SUCCESS=0;
 EXIT_FAILURE=1;
 EXIT_IGNORE=77;
 
-LIBRARY_TESTS="adc error lzfse lzfse_bit_stream lzvn notify support";
+LIBRARY_TESTS="adc error lzfse lzfse_bit_stream lzfse_decoder lzvn notify support";
 LIBRARY_TESTS_WITH_INPUT="";
 OPTION_SETS="";
 

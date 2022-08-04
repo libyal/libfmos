@@ -6,7 +6,7 @@ $ExitSuccess = 0
 $ExitFailure = 1
 $ExitIgnore = 77
 
-$LibraryTests = "adc error lzfse lzfse_bit_stream lzvn notify support"
+$LibraryTests = "adc error lzfse lzfse_bit_stream lzfse_decoder lzvn notify support"
 $LibraryTestsWithInput = ""
 $OptionSets = ""
 

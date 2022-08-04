@@ -1,5 +1,5 @@
 /*
- * LZFSE (un)compression testing program
+ * LZFSE bit-stream testing program
  *
  * Copyright (C) 2019-2022, Joachim Metz <joachim.metz@gmail.com>
  *

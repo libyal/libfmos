@@ -19,6 +19,7 @@ libfmos_la_SOURCES = \
 	libfmos_libcnotify.h \
 	libfmos_lzfse.c libfmos_lzfse.h \
 	libfmos_lzfse_bit_stream.c libfmos_lzfse_bit_stream.h \
+	libfmos_lzfse_decoder.c libfmos_lzfse_decoder.h \
 	libfmos_lzvn.c libfmos_lzvn.h \
 	libfmos_notify.c libfmos_notify.h \
 	libfmos_support.c libfmos_support.h \

@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="fmos_test_lzfse"
-	ProjectGUID="{9E2E8C0E-EC22-447F-A244-FF35AE1EF10D}"
+	ProjectGUID="{F8125E9B-09C0-4DB6-9CB1-028DECE20EE2}"
 	RootNamespace="fmos_test_lzfse"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"

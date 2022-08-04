@@ -24,10 +24,12 @@
 #include <memory.h>
 #include <types.h>
 
+#include "libfmos_definitions.h"
 #include "libfmos_libcerror.h"
 #include "libfmos_libcnotify.h"
 #include "libfmos_lzfse.h"
 #include "libfmos_lzfse_bit_stream.h"
+#include "libfmos_lzfse_decoder.h"
 #include "libfmos_lzvn.h"
 
 #define LIBFMOS_LZFSE_ENDOFSTREAM_BLOCK_MARKER		0x24787662UL
@@ -83,109 +85,6 @@ const int32_t libfmos_lzfse_m_value_base_table[ LIBFMOS_LZFSE_NUMBER_OF_M_VALUE_
 #define libfmos_lzfse_count_leading_zeros( value ) \
 	__builtin_clz( (unsigned int) value )
 #endif
-
-/* Creates a decoder
- * Make sure the value decoder is referencing, is set to NULL
- * Returns 1 if successful or -1 on error
- */
-int libfmos_lzfse_decoder_initialize(
-     libfmos_lzfse_decoder_t **decoder,
-     libcerror_error_t **error )
-{
-	static char *function = "libfmos_lzfse_decoder_initialize";
-
-	if( decoder == NULL )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid decoder.",
-		 function );
-
-		return( -1 );
-	}
-	if( *decoder != NULL )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
-		 "%s: invalid decoder value already set.",
-		 function );
-
-		return( -1 );
-	}
-	*decoder = memory_allocate_structure(
-	            libfmos_lzfse_decoder_t );
-
-	if( *decoder == NULL )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_MEMORY,
-		 LIBCERROR_MEMORY_ERROR_INSUFFICIENT,
-		 "%s: unable to create decoder.",
-		 function );
-
-		goto on_error;
-	}
-	if( memory_set(
-	     *decoder,
-	     0,
-	     sizeof( libfmos_lzfse_decoder_t ) ) == NULL )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_MEMORY,
-		 LIBCERROR_MEMORY_ERROR_SET_FAILED,
-		 "%s: unable to clear decoder.",
-		 function );
-
-		goto on_error;
-	}
-	return( 1 );
-
-on_error:
-	if( *decoder != NULL )
-	{
-		memory_free(
-		 *decoder );
-
-		*decoder = NULL;
-	}
-	return( -1 );
-}
-
-/* Frees a decoder
- * Returns 1 if successful or -1 on error
- */
-int libfmos_lzfse_decoder_free(
-     libfmos_lzfse_decoder_t **decoder,
-     libcerror_error_t **error )
-{
-	static char *function = "libfmos_lzfse_decoder_free";
-
-	if( decoder == NULL )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid decoder.",
-		 function );
-
-		return( -1 );
-	}
-	if( *decoder != NULL )
-	{
-		memory_free(
-		 *decoder );
-
-		*decoder = NULL;
-	}
-	return( 1 );
-}
 
 /* Builds a decoder table
  * Returns 1 on success or -1 on error

@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="fmos_test_error"
-	ProjectGUID="{3175EF5E-B3A5-4BD0-A79C-6561AD03302B}"
-	RootNamespace="fmos_test_error"
+	Name="fmos_test_lzfse_decoder"
+	ProjectGUID="{E6024A06-03A4-41E8-876E-4A76A80411DA}"
+	RootNamespace="fmos_test_lzfse_decoder"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -176,7 +176,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\tests\fmos_test_error.c"
+				RelativePath="..\..\tests\fmos_test_lzfse_decoder.c"
 				>
 			</File>
 		</Filter>
@@ -185,6 +185,14 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\..\tests\fmos_test_libcerror.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\fmos_test_libcnotify.h"
+				>
+			</File>
 			<File
 				RelativePath="..\..\tests\fmos_test_libfmos.h"
 				>
