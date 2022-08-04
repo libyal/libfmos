@@ -28,6 +28,7 @@
 #endif
 
 #include "pyfmos.h"
+#include "pyfmos_adc.h"
 #include "pyfmos_error.h"
 #include "pyfmos_libcerror.h"
 #include "pyfmos_libfmos.h"
@@ -43,6 +44,13 @@ PyMethodDef pyfmos_module_methods[] = {
 	  "get_version() -> String\n"
 	  "\n"
 	  "Retrieves the version." },
+
+	{ "adc_decompress",
+	  (PyCFunction) pyfmos_adc_decompress,
+	  METH_VARARGS | METH_KEYWORDS,
+	  "adc_decompress(compressed_data, uncompressed_data_size) -> Bytes\n"
+	  "\n"
+	  "Decompresses data using ADC compression." },
 
 	/* Sentinel */
 	{ NULL, NULL, 0, NULL }

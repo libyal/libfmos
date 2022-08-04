@@ -42,6 +42,9 @@
 uint8_t fmos_test_adc_compressed_data[ 10 ] = {
 	0x83, 0xfe, 0xed, 0xfa, 0xce, 0x00, 0x00, 0x40, 0x00, 0x06 };
 
+uint8_t fmos_test_adc_uncompressed_data[ 11 ] = {
+	0xfe, 0xed, 0xfa, 0xce, 0xce, 0xce, 0xce, 0xfe, 0xed, 0xfa, 0xce };
+
 #if defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT )
 
 /* Tests the libfmos_adc_decompress function
@@ -52,12 +55,9 @@ int fmos_test_adc_decompress(
 {
 	uint8_t uncompressed_data[ 16 ];
 
-	uint8_t expected_uncompressed_data[ 11 ] = {
-		0xfe, 0xed, 0xfa, 0xce, 0xce, 0xce, 0xce, 0xfe, 0xed, 0xfa, 0xce };
-
-	libcerror_error_t *error                 = NULL;
-	size_t uncompressed_data_size            = 0;
-	int result                               = 0;
+	libcerror_error_t *error      = NULL;
+	size_t uncompressed_data_size = 0;
+	int result                    = 0;
 
 	/* Test regular cases
 	 */
@@ -86,7 +86,7 @@ int fmos_test_adc_decompress(
 
 	result = memory_compare(
 	          uncompressed_data,
-	          expected_uncompressed_data,
+	          fmos_test_adc_uncompressed_data,
 	          11 );
 
 	FMOS_TEST_ASSERT_EQUAL_INT(

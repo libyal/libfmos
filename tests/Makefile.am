@@ -17,6 +17,7 @@ TESTS_PYFMOS = \
 endif
 
 check_SCRIPTS = \
+	pyfmos_test_adc.py \
 	pyfmos_test_support.py \
 	test_library.sh \
 	test_manpage.sh \

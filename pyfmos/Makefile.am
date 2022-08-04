@@ -9,6 +9,7 @@ pyexec_LTLIBRARIES = pyfmos.la
 
 pyfmos_la_SOURCES = \
 	pyfmos.c pyfmos.h \
+	pyfmos_adc.c pyfmos_adc.h \
 	pyfmos_error.c pyfmos_error.h \
 	pyfmos_libcerror.h \
 	pyfmos_libfmos.h \

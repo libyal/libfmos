@@ -1,7 +1,8 @@
 TODO
 
 Python bindings
-* Add ADC, LZFSE and LZVN compression support
+* Add LZFSE compression support
+* Add LZVN compression support
 
 Tests:
 * add LZFSE v1 header test data

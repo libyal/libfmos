@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="fmos_test_lzfse_decoder"
-	ProjectGUID="{5D0D54C1-C0D6-43F1-A6A8-28D32B716682}"
+	ProjectGUID="{549E63F6-35B7-44F9-9B2E-D9A09CD134C6}"
 	RootNamespace="fmos_test_lzfse_decoder"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
