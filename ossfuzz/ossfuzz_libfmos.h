@@ -1,5 +1,5 @@
 /*
- * The internal type definitions
+ * The libfmos header wrapper
  *
  * Copyright (C) 2019-2022, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -19,31 +19,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#if !defined( _LIBFMOS_INTERNAL_TYPES_H )
-#define _LIBFMOS_INTERNAL_TYPES_H
+#if !defined( _OSSFUZZ_LIBFMOS_H )
+#define _OSSFUZZ_LIBFMOS_H
 
 #include <common.h>
-#include <types.h>
 
-/* Define HAVE_LOCAL_LIBFMOS for local use of libfmos
- * The definitions in <libfmos/types.h> are copied here
- * for local use of libfmos
- */
-#if defined( HAVE_LOCAL_LIBFMOS )
+#include <libfmos.h>
 
-/* The following type definitions hide internal data structures
- */
-#if defined( HAVE_DEBUG_OUTPUT ) && !defined( WINAPI )
-
-/* TODO */
-
-#else
-
-/* TODO */
-
-#endif /* defined( HAVE_DEBUG_OUTPUT ) && !defined( WINAPI ) */
-
-#endif /* defined( HAVE_LOCAL_LIBFMOS ) */
-
-#endif /* !defined( _LIBFMOS_INTERNAL_TYPES_H ) */
+#endif /* !defined( _OSSFUZZ_LIBFMOS_H ) */
 

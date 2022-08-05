@@ -199,13 +199,6 @@ typedef int64_t off64_t;
 
 #endif
 
-/* The following type definitions hide internal data structures
- */
-typedef intptr_t libfmos_access_control_entry_t;
-typedef intptr_t libfmos_access_control_list_t;
-typedef intptr_t libfmos_security_descriptor_t;
-typedef intptr_t libfmos_security_identifier_t;
-
 #ifdef __cplusplus
 }
 #endif

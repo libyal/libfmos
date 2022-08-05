@@ -7,7 +7,7 @@ EXIT_SUCCESS=0;
 EXIT_FAILURE=1;
 
 GIT_URL_PREFIX="https://github.com/libyal";
-SHARED_LIBS="libcerror libcthreads libcdata libcnotify";
+SHARED_LIBS="libcerror libcthreads libcnotify";
 
 USE_HEAD="";
 

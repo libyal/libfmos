@@ -1,4 +1,4 @@
-.Dd August  4, 2022
+.Dd August  5, 2022
 .Dt libfmos 3
 .Os libfmos
 .Sh NAME
@@ -43,7 +43,7 @@ LZFSE functions
 .Pp
 LZVN functions
 .Ft int
-.Fn libfmos_zlvn_decompress "const uint8_t *compressed_data" "size_t compressed_data_size" "uint8_t *uncompressed_data" "size_t *uncompressed_data_size" "libfmos_error_t **error"
+.Fn libfmos_lzvn_decompress "const uint8_t *compressed_data" "size_t compressed_data_size" "uint8_t *uncompressed_data" "size_t *uncompressed_data_size" "libfmos_error_t **error"
 .Sh DESCRIPTION
 The
 .Fn libfmos_get_version

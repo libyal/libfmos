@@ -1,5 +1,5 @@
 /*
- * The internal type definitions
+ * OSS-Fuzz target for libfmos ADC decompress function
  *
  * Copyright (C) 2019-2022, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -19,31 +19,32 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#if !defined( _LIBFMOS_INTERNAL_TYPES_H )
-#define _LIBFMOS_INTERNAL_TYPES_H
+#include <stddef.h>
+#include <stdint.h>
 
-#include <common.h>
-#include <types.h>
-
-/* Define HAVE_LOCAL_LIBFMOS for local use of libfmos
- * The definitions in <libfmos/types.h> are copied here
- * for local use of libfmos
+/* Note that some of the OSS-Fuzz engines use C++
  */
-#if defined( HAVE_LOCAL_LIBFMOS )
+extern "C" {
 
-/* The following type definitions hide internal data structures
- */
-#if defined( HAVE_DEBUG_OUTPUT ) && !defined( WINAPI )
+#include "ossfuzz_libfmos.h"
 
-/* TODO */
+int LLVMFuzzerTestOneInput(
+     const uint8_t *data,
+     size_t size )
+{
+	uint8_t uncompressed_data[ 64 * 1024 ];
 
-#else
+	size_t uncompressed_data_size = 64 * 1024;
 
-/* TODO */
+	libfmos_adc_decompress(
+	 data,
+	 size,
+	 uncompressed_data,
+	 &uncompressed_data_size,
+	 NULL );
 
-#endif /* defined( HAVE_DEBUG_OUTPUT ) && !defined( WINAPI ) */
+	return( 0 );
+}
 
-#endif /* defined( HAVE_LOCAL_LIBFMOS ) */
-
-#endif /* !defined( _LIBFMOS_INTERNAL_TYPES_H ) */
+} /* extern "C" */
 
