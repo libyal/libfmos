@@ -523,32 +523,32 @@ int libfmos_lzfse_read_block_v1_header(
 	if( libcnotify_verbose != 0 )
 	{
 		libcnotify_printf(
-		 "%s: compressed block size\t\t\t: %" PRIu32 "\n",
+		 "%s: compressed block size\t\t: %" PRIu32 "\n",
 		 function,
 		 compressed_block_size );
 
 		libcnotify_printf(
-		 "%s: number of literals\t\t\t\t: %" PRIu32 "\n",
+		 "%s: number of literals\t\t\t: %" PRIu32 "\n",
 		 function,
 		 decoder->number_of_literals );
 
 		libcnotify_printf(
-		 "%s: number of L, M, D values\t\t\t: %" PRIu32 "\n",
+		 "%s: number of L, M, D values\t\t: %" PRIu32 "\n",
 		 function,
 		 decoder->number_of_lmd_values );
 
 		libcnotify_printf(
-		 "%s: literals data size\t\t\t\t: %" PRIu32 "\n",
+		 "%s: literals data size\t\t\t: %" PRIu32 "\n",
 		 function,
 		 decoder->literals_data_size );
 
 		libcnotify_printf(
-		 "%s: L, M, D values data size\t\t\t: %" PRIu32 "\n",
+		 "%s: L, M, D values data size\t\t: %" PRIu32 "\n",
 		 function,
 		 decoder->lmd_values_data_size );
 
 		libcnotify_printf(
-		 "%s: literal_bits\t\t\t\t: %" PRIi32 "\n",
+		 "%s: literal_bits\t\t\t: %" PRIi32 "\n",
 		 function,
 		 (int32_t) literal_bits );
 
@@ -557,28 +557,28 @@ int libfmos_lzfse_read_block_v1_header(
 		     literal_decoder_index++ )
 		{
 			libcnotify_printf(
-			 "%s: literal_state[ %" PRIu8 " ]\t\t\t\t: %" PRIu16 "\n",
+			 "%s: literal_state[ %" PRIu8 " ]\t\t\t: %" PRIu16 "\n",
 			 function,
 			 literal_decoder_index,
 			 decoder->literal_states[ literal_decoder_index ] );
 		}
 		libcnotify_printf(
-		 "%s: lmd_values_bits\t\t\t\t: %" PRIi32 "\n",
+		 "%s: lmd_values_bits\t\t\t: %" PRIi32 "\n",
 		 function,
 		 (int32_t) lmd_values_bits );
 
 		libcnotify_printf(
-		 "%s: L value state\t\t\t\t: %" PRIu16 "\n",
+		 "%s: L value state\t\t\t: %" PRIu16 "\n",
 		 function,
 		 decoder->l_value_state );
 
 		libcnotify_printf(
-		 "%s: M value state\t\t\t\t: %" PRIu16 "\n",
+		 "%s: M value state\t\t\t: %" PRIu16 "\n",
 		 function,
 		 decoder->m_value_state );
 
 		libcnotify_printf(
-		 "%s: D value state\t\t\t\t: %" PRIu16 "\n",
+		 "%s: D value state\t\t\t: %" PRIu16 "\n",
 		 function,
 		 decoder->d_value_state );
 
@@ -589,12 +589,14 @@ int libfmos_lzfse_read_block_v1_header(
 			if( frequency_table[ table_index ] != 0 )
 			{
 				libcnotify_printf(
-				 "%s: frequency table: %d value\t\t\t: %" PRIu16 "\n",
+				 "%s: frequency table: %d value\t\t: %" PRIu16 "\n",
 				 function,
 				 table_index,
 				 frequency_table[ table_index ] );
 			}
 		}
+		libcnotify_printf(
+		 "\n" );
 	}
 #endif /* defined( HAVE_DEBUG_OUTPUT ) */
 
@@ -732,17 +734,17 @@ int libfmos_lzfse_read_block_v2_header(
 	if( libcnotify_verbose != 0 )
 	{
 		libcnotify_printf(
-		 "%s: packed fields 1\t\t\t\t: 0x%08" PRIx64 "\n",
+		 "%s: packed fields 1\t\t\t: 0x%08" PRIx64 "\n",
 		 function,
 		 packed_fields1 );
 
 		libcnotify_printf(
-		 "%s: packed fields 2\t\t\t\t: 0x%08" PRIx64 "\n",
+		 "%s: packed fields 2\t\t\t: 0x%08" PRIx64 "\n",
 		 function,
 		 packed_fields2 );
 
 		libcnotify_printf(
-		 "%s: packed fields 3\t\t\t\t: 0x%08" PRIx64 "\n",
+		 "%s: packed fields 3\t\t\t: 0x%08" PRIx64 "\n",
 		 function,
 		 packed_fields3 );
 	}
@@ -824,27 +826,27 @@ int libfmos_lzfse_read_block_v2_header(
 	if( libcnotify_verbose != 0 )
 	{
 		libcnotify_printf(
-		 "%s: number of literals\t\t\t\t: %" PRIu32 "\n",
+		 "%s: number of literals\t\t\t: %" PRIu32 "\n",
 		 function,
 		 decoder->number_of_literals );
 
 		libcnotify_printf(
-		 "%s: number of L, M, D values\t\t\t: %" PRIu32 "\n",
+		 "%s: number of L, M, D values\t\t: %" PRIu32 "\n",
 		 function,
 		 decoder->number_of_lmd_values );
 
 		libcnotify_printf(
-		 "%s: literals data size\t\t\t\t: %" PRIu32 "\n",
+		 "%s: literals data size\t\t\t: %" PRIu32 "\n",
 		 function,
 		 decoder->literals_data_size );
 
 		libcnotify_printf(
-		 "%s: L, M, D values data size\t\t\t: %" PRIu32 "\n",
+		 "%s: L, M, D values data size\t\t: %" PRIu32 "\n",
 		 function,
 		 decoder->lmd_values_data_size );
 
 		libcnotify_printf(
-		 "%s: literal_bits\t\t\t\t: %" PRIi32 "\n",
+		 "%s: literal_bits\t\t\t: %" PRIi32 "\n",
 		 function,
 		 decoder->literal_bits );
 
@@ -853,33 +855,33 @@ int libfmos_lzfse_read_block_v2_header(
 		     literal_decoder_index++ )
 		{
 			libcnotify_printf(
-			 "%s: literal_states[ %" PRIu8 " ]\t\t\t\t: %" PRIu16 "\n",
+			 "%s: literal_states[ %" PRIu8 " ]\t\t\t: %" PRIu16 "\n",
 			 function,
 			 literal_decoder_index,
 			 decoder->literal_states[ literal_decoder_index ] );
 		}
 		libcnotify_printf(
-		 "%s: lmd_bits\t\t\t\t\t: %" PRIi32 "\n",
+		 "%s: lmd_bits\t\t\t\t: %" PRIi32 "\n",
 		 function,
 		 decoder->lmd_values_bits );
 
 		libcnotify_printf(
-		 "%s: header size\t\t\t\t\t: %" PRIu32 "\n",
+		 "%s: header size\t\t\t\t: %" PRIu32 "\n",
 		 function,
 		 header_size );
 
 		libcnotify_printf(
-		 "%s: L value state\t\t\t\t: %" PRIu16 "\n",
+		 "%s: L value state\t\t\t: %" PRIu16 "\n",
 		 function,
 		 decoder->l_value_state );
 
 		libcnotify_printf(
-		 "%s: M value state\t\t\t\t: %" PRIu16 "\n",
+		 "%s: M value state\t\t\t: %" PRIu16 "\n",
 		 function,
 		 decoder->m_value_state );
 
 		libcnotify_printf(
-		 "%s: D value state\t\t\t\t: %" PRIu16 "\n",
+		 "%s: D value state\t\t\t: %" PRIu16 "\n",
 		 function,
 		 decoder->d_value_state );
 
@@ -890,12 +892,14 @@ int libfmos_lzfse_read_block_v2_header(
 			if( frequency_table[ table_index ] != 0 )
 			{
 				libcnotify_printf(
-				 "%s: frequency table: %d value\t\t\t: %" PRIu16 "\n",
+				 "%s: frequency table: %d value\t\t: %" PRIu16 "\n",
 				 function,
 				 table_index,
 				 frequency_table[ table_index ] );
 			}
 		}
+		libcnotify_printf(
+		 "\n" );
 	}
 #endif /* defined( HAVE_DEBUG_OUTPUT ) */
 
@@ -1287,8 +1291,38 @@ int libfmos_lzfse_read_literal_values(
 			literal_values[ literal_value_index + literal_decoder_index ] = decoder_entry->symbol;
 
 			literal_states[ literal_decoder_index ] = (uint16_t) literal_state;
+
+#if defined( HAVE_DEBUG_OUTPUT )
+			if( libcnotify_verbose != 0 )
+			{
+				libcnotify_printf(
+				 "%s: value\t\t\t\t: 0x%" PRIx32 " (%" PRIu8 ")\n",
+				 function,
+				 value_32bit,
+				 decoder_entry->number_of_bits );
+
+				libcnotify_printf(
+				 "%s: literal values[ %" PRIu32 " ]\t\t\t: 0x%02" PRIx8 "\n",
+				 function,
+				 literal_value_index + literal_decoder_index,
+				 decoder_entry->symbol );
+
+				libcnotify_printf(
+				 "%s: literal states[ %" PRIu8 " ]\t\t\t: %" PRIi32 "\n",
+				 function,
+				 literal_decoder_index,
+				 literal_state );
+			}
+#endif /* defined( HAVE_DEBUG_OUTPUT ) */
 		}
 	}
+#if defined( HAVE_DEBUG_OUTPUT )
+	if( libcnotify_verbose != 0 )
+	{
+		libcnotify_printf(
+		 "\n" );
+	}
+#endif
 	return( 1 );
 }
 
@@ -1467,6 +1501,20 @@ int libfmos_lzfse_read_lmd_values(
 		l_value_state = (int32_t) value_decoder_entry->delta + (int32_t) ( value_32bit >> value_decoder_entry->value_bits );
 		l_value       = value_decoder_entry->value_base + (int32_t) ( value_32bit & value_decoder_entry->value_bitmask );
 
+#if defined( HAVE_DEBUG_OUTPUT )
+		if( libcnotify_verbose != 0 )
+		{
+			libcnotify_printf(
+			 "%s: l_value\t\t\t\t\t: %" PRIi32 "\n",
+			 function,
+			 l_value );
+
+			libcnotify_printf(
+			 "%s: l_value_state\t\t\t\t: %" PRIi32 "\n",
+			 function,
+			 l_value_state );
+		}
+#endif
 		value_decoder_entry = &( decoder->m_value_decoder_table[ m_value_state ] );
 
 		if( libfmos_lzfse_bit_stream_get_value(
@@ -1487,6 +1535,20 @@ int libfmos_lzfse_read_lmd_values(
 		m_value_state = (int32_t) value_decoder_entry->delta + (int32_t) ( value_32bit >> value_decoder_entry->value_bits );
 		m_value       = value_decoder_entry->value_base + (int32_t) ( value_32bit & value_decoder_entry->value_bitmask );
 
+#if defined( HAVE_DEBUG_OUTPUT )
+		if( libcnotify_verbose != 0 )
+		{
+			libcnotify_printf(
+			 "%s: m_value\t\t\t\t\t: %" PRIi32 "\n",
+			 function,
+			 m_value );
+
+			libcnotify_printf(
+			 "%s: m_value_state\t\t\t\t: %" PRIi32 "\n",
+			 function,
+			 m_value_state );
+		}
+#endif
 		value_decoder_entry = &( decoder->d_value_decoder_table[ d_value_state ] );
 
 		if( libfmos_lzfse_bit_stream_get_value(
@@ -1518,6 +1580,20 @@ int libfmos_lzfse_read_lmd_values(
 
 			return( -1 );
 		}
+#if defined( HAVE_DEBUG_OUTPUT )
+		if( libcnotify_verbose != 0 )
+		{
+			libcnotify_printf(
+			 "%s: d_value\t\t\t\t\t: %" PRIi32 "\n",
+			 function,
+			 safe_d_value );
+
+			libcnotify_printf(
+			 "%s: d_value_state\t\t\t\t: %" PRIi32 "\n",
+			 function,
+			 d_value_state );
+		}
+#endif
 		if( safe_d_value != 0 )
 		{
 			d_value = safe_d_value;
@@ -1574,6 +1650,13 @@ int libfmos_lzfse_read_lmd_values(
 		}
 		remaining_uncompressed_data_size -= m_value;
 	}
+#if defined( HAVE_DEBUG_OUTPUT )
+	if( libcnotify_verbose != 0 )
+	{
+		libcnotify_printf(
+		 "\n" );
+	}
+#endif
 #if defined( HAVE_DEBUG_OUTPUT )
 	if( libcnotify_verbose != 0 )
 	{
@@ -1702,14 +1785,14 @@ int libfmos_lzfse_decompress(
 			 && ( block_marker != LIBFMOS_LZFSE_COMPRESSED_BLOCK_LZVN_MARKER ) )
 			{
 				libcnotify_printf(
-				 "%s: block marker\t\t\t\t\t\t: 0x%08" PRIx32 "\n",
+				 "%s: block marker\t\t\t\t\t: 0x%08" PRIx32 "\n",
 				 function,
 				 block_marker );
 			}
 			else
 			{
 				libcnotify_printf(
-				 "%s: block marker\t\t\t\t\t\t: %c%c%c%c (",
+				 "%s: block marker\t\t\t\t\t: %c%c%c%c (",
 				 function,
 				 compressed_data[ compressed_data_offset ],
 				 compressed_data[ compressed_data_offset + 1 ],
@@ -1796,7 +1879,7 @@ int libfmos_lzfse_decompress(
 		if( libcnotify_verbose != 0 )
 		{
 			libcnotify_printf(
-			 "%s: uncompressed block size\t\t\t\t: %" PRIu32 "\n",
+			 "%s: uncompressed block size\t\t\t: %" PRIu32 "\n",
 			 function,
 			 uncompressed_block_size );
 		}
@@ -1893,7 +1976,7 @@ int libfmos_lzfse_decompress(
 				if( libcnotify_verbose != 0 )
 				{
 					libcnotify_printf(
-					 "%s: compressed block size\t\t\t\t\t: %" PRIu32 "\n",
+					 "%s: compressed block size\t\t\t\t: %" PRIu32 "\n",
 					 function,
 					 compressed_block_size );
 

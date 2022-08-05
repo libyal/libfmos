@@ -583,22 +583,22 @@ int libfmos_lzvn_decompress(
 			 LIBCNOTIFY_PRINT_DATA_FLAG_GROUP_DATA );
 
 			libcnotify_printf(
-			 "%s: oppcode\t\t\t\t\t\t: 0x%02" PRIx8 "\n",
+			 "%s: oppcode\t\t\t\t\t: 0x%02" PRIx8 "\n",
 			 function,
 			 oppcode );
 
 			libcnotify_printf(
-			 "%s: literal size\t\t\t\t\t\t: %" PRIu16 "\n",
+			 "%s: literal size\t\t\t\t\t: %" PRIu16 "\n",
 			 function,
 			 literal_size );
 
 			libcnotify_printf(
-			 "%s: match size\t\t\t\t\t\t: %" PRIu16 "\n",
+			 "%s: match size\t\t\t\t\t: %" PRIu16 "\n",
 			 function,
 			 match_size );
 
 			libcnotify_printf(
-			 "%s: distance\t\t\t\t\t\t: %" PRIu16 "\n",
+			 "%s: distance\t\t\t\t\t: %" PRIu16 "\n",
 			 function,
 			 distance );
 
@@ -700,7 +700,7 @@ int libfmos_lzvn_decompress(
 				debug_match_size   = match_size;
 
 				libcnotify_printf(
-				 "%s: match offset\t\t\t\t\t\t: 0x%" PRIzx "\n",
+				 "%s: match offset\t\t\t\t\t: 0x%" PRIzx "\n",
 				 function,
 				 debug_match_offset );
 			}

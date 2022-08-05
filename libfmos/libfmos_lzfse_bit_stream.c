@@ -218,9 +218,8 @@ int libfmos_lzfse_bit_stream_get_value(
      uint32_t *value_32bit,
      libcerror_error_t **error )
 {
-	static char *function             = "libfmos_lzfse_bit_stream_get_value";
-	uint32_t safe_value_32bit         = 0;
-	uint8_t remaining_bit_buffer_size = 0;
+	static char *function     = "libfmos_lzfse_bit_stream_get_value";
+	uint32_t safe_value_32bit = 0;
 
 	if( bit_stream == NULL )
 	{
@@ -278,19 +277,16 @@ int libfmos_lzfse_bit_stream_get_value(
 			return( -1 );
 		}
 	}
-	safe_value_32bit = bit_stream->bit_buffer;
+	bit_stream->bit_buffer_size -= number_of_bits;
+	safe_value_32bit             = bit_stream->bit_buffer >> bit_stream->bit_buffer_size;
 
-	if( number_of_bits < 32 )
+	if( bit_stream->bit_buffer_size > 0 )
 	{
-		bit_stream->bit_buffer_size -= number_of_bits;
-		safe_value_32bit           >>= bit_stream->bit_buffer_size;
-		remaining_bit_buffer_size    = 32 - bit_stream->bit_buffer_size;
-		bit_stream->bit_buffer      &= 0xffffffffUL >> remaining_bit_buffer_size;
+		bit_stream->bit_buffer &= 0xffffffffUL >> ( 32 - bit_stream->bit_buffer_size );
 	}
 	else
 	{
-		bit_stream->bit_buffer      = 0;
-		bit_stream->bit_buffer_size = 0;
+		bit_stream->bit_buffer = 0;
 	}
 	*value_32bit = safe_value_32bit;
 
