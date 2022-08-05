@@ -123,6 +123,7 @@ stamp-h[1-9]
 /libfmos.spec
 /libfmos/libfmos.rc
 /libfmos/libfmos_definitions.h
+/pyfmos-python[23]/*.[ch]
 /tests/*.exe
 /tests/fmos_test_adc
 /tests/fmos_test_error

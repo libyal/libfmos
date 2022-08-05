@@ -114,7 +114,7 @@ int libfmos_adc_decompress(
 		{
 			break;
 		}
-		if( compressed_data_offset > ( compressed_data_size + 1 ) )
+		if( compressed_data_offset >= compressed_data_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -188,7 +188,8 @@ int libfmos_adc_decompress(
 		{
 			if( ( oppcode & 0x40 ) != 0 )
 			{
-				if( compressed_data_offset > ( compressed_data_size + 2 ) )
+				if( ( compressed_data_size < 2 )
+				 || ( compressed_data_offset > ( compressed_data_size - 2 ) ) )
 				{
 					libcerror_error_set(
 					 error,
@@ -206,7 +207,7 @@ int libfmos_adc_decompress(
 			}
 			else
 			{
-				if( compressed_data_offset > ( compressed_data_size + 1 ) )
+				if( compressed_data_offset >= compressed_data_size )
 				{
 					libcerror_error_set(
 					 error,
@@ -222,13 +223,24 @@ int libfmos_adc_decompress(
 				distance <<= 8;
 				distance  |= compressed_data[ compressed_data_offset++ ];
 			}
-			if( ( (size_t) distance + 1 ) > uncompressed_data_offset )
+			if( (size_t) distance >= uncompressed_data_offset )
 			{
 				libcerror_error_set(
 				 error,
 				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 				 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-				 "%s: distance value exceeds uncompressed data offset.",
+				 "%s: invalid distance value out of bounds.",
+				 function );
+
+				return( -1 );
+			}
+			if( uncompressed_data_offset < 1 )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+				 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+				 "%s: invalid uncompressed data offset value out of bounds.",
 				 function );
 
 				return( -1 );
@@ -242,7 +254,7 @@ int libfmos_adc_decompress(
 				 error,
 				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 				 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-				 "%s: match size value exceeds uncompressed data size.",
+				 "%s: invalid match size value out of bounds.",
 				 function );
 
 				return( -1 );

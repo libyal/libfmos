@@ -5,7 +5,7 @@
  *
  * Refer to AUTHORS for acknowledgements.
  *
- * This program is free software: you can redistribute it and/or fmosfy
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -44,8 +44,6 @@ uint8_t fmos_test_adc_compressed_data[ 10 ] = {
 
 uint8_t fmos_test_adc_uncompressed_data[ 11 ] = {
 	0xfe, 0xed, 0xfa, 0xce, 0xce, 0xce, 0xce, 0xfe, 0xed, 0xfa, 0xce };
-
-#if defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT )
 
 /* Tests the libfmos_adc_decompress function
  * Returns 1 if successful or 0 if not
@@ -201,8 +199,6 @@ on_error:
 	return( 0 );
 }
 
-#endif /* defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT ) */
-
 /* The main program
  */
 #if defined( HAVE_WIDE_SYSTEM_CHARACTER )
@@ -226,21 +222,13 @@ int main(
 	 NULL );
 #endif
 
-#if defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT )
-
 	FMOS_TEST_RUN(
 	 "libfmos_adc_decompress",
 	 fmos_test_adc_decompress );
 
-#endif /* defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT ) */
-
 	return( EXIT_SUCCESS );
-
-#if defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT )
 
 on_error:
 	return( EXIT_FAILURE );
-
-#endif /* defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT ) */
 }
 

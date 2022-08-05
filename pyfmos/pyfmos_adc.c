@@ -144,7 +144,7 @@ PyObject *pyfmos_adc_decompress(
 
 		goto on_error;
 	}
-	/* Need to resize the string here in case read_size was not fully read.
+	/* Need to resize the string here in case uncompressed_data_size was not fully used.
 	 */
 #if PY_MAJOR_VERSION >= 3
 	if( _PyBytes_Resize(

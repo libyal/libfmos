@@ -47,8 +47,6 @@ uint8_t fmos_test_lzvn_uncompressed_data[ 19 ] = {
 	0x4d, 0x79, 0x20, 0x63, 0x6f, 0x6d, 0x70, 0x72, 0x65, 0x73, 0x73, 0x65, 0x64, 0x20, 0x66, 0x69,
 	0x6c, 0x65, 0x0a };
 
-#if defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT )
-
 /* Tests the libfmos_lzvn_decompress function
  * Returns 1 if successful or 0 if not
  */
@@ -185,8 +183,6 @@ on_error:
 	return( 0 );
 }
 
-#endif /* defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT ) */
-
 /* The main program
  */
 #if defined( HAVE_WIDE_SYSTEM_CHARACTER )
@@ -210,21 +206,13 @@ int main(
 	 NULL );
 #endif
 
-#if defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT )
-
 	FMOS_TEST_RUN(
 	 "libfmos_lzvn_decompress",
 	 fmos_test_lzvn_decompress );
 
-#endif /* defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT ) */
-
 	return( EXIT_SUCCESS );
-
-#if defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT )
 
 on_error:
 	return( EXIT_FAILURE );
-
-#endif /* defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT ) */
 }
 

@@ -1,8 +1,8 @@
-AC_PREREQ([2.69])
+AC_PREREQ([2.71])
 
 AC_INIT(
  [libfmos],
- [20220804],
+ [20220805],
  [joachim.metz@gmail.com])
 
 AC_CONFIG_SRCDIR(
@@ -21,7 +21,6 @@ LT_INIT([win32-dll])
 dnl Checks for programs
 AC_PROG_CC
 AC_PROG_GCC_TRADITIONAL
-AC_PROG_CXX
 AC_PROG_MAKE_SET
 AC_PROG_INSTALL
 
@@ -93,7 +92,6 @@ AX_LIBFMOS_CHECK_DLL_SUPPORT
 
 dnl Check if tests required headers and functions are available
 AX_TESTS_CHECK_LOCAL
-AX_TESTS_CHECK_OSSFUZZ
 
 dnl Set additional compiler flags
 CFLAGS="$CFLAGS -Wall";

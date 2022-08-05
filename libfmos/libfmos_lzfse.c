@@ -1199,7 +1199,7 @@ int libfmos_lzfse_read_literal_values(
 	libfmos_lzfse_decoder_entry_t *decoder_entry = NULL;
 	static char *function                        = "libfmos_lzfse_read_literal_values";
 	uint32_t value_32bit                         = 0;
-	int32_t literal_value_index                  = 0;
+	uint32_t literal_value_index                 = 0;
 	int32_t literal_state                        = 0;
 	uint8_t literal_decoder_index                = 0;
 
@@ -1210,6 +1210,17 @@ int libfmos_lzfse_read_literal_values(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid decoder.",
+		 function );
+
+		return( -1 );
+	}
+	if( decoder->number_of_literals > (uint32_t) INT32_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+		 "%s: invalid decoder - number of literals value out of bounds.",
 		 function );
 
 		return( -1 );
@@ -1343,7 +1354,7 @@ int libfmos_lzfse_read_lmd_values(
 
 		return( -1 );
 	}
-	if( uncompressed_data_size > (size_t) SSIZE_MAX )
+	if( uncompressed_data_size > (size_t) INT32_MAX )
 	{
 		libcerror_error_set(
 		 error,
@@ -1511,7 +1522,7 @@ int libfmos_lzfse_read_lmd_values(
 		{
 			d_value = safe_d_value;
 		}
-		if( l_value > remaining_uncompressed_data_size )
+		if( l_value > (int32_t) remaining_uncompressed_data_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -1531,7 +1542,7 @@ int libfmos_lzfse_read_lmd_values(
 		literal_value_index              += l_value;
 		remaining_uncompressed_data_size -= l_value;
 
-		if( m_value > remaining_uncompressed_data_size )
+		if( m_value > (int32_t) remaining_uncompressed_data_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -1542,7 +1553,7 @@ int libfmos_lzfse_read_lmd_values(
 
 			return( -1 );
 		}
-		if( d_value > safe_uncompressed_data_offset )
+		if( d_value > (int32_t) safe_uncompressed_data_offset )
 		{
 			libcerror_error_set(
 			 error,

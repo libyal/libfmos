@@ -1853,6 +1853,8 @@ on_error:
 	return( 0 );
 }
 
+#endif /* defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT ) */
+
 /* Tests the libfmos_lzfse_decompress function
  * Returns 1 if successful or 0 if not
  */
@@ -2007,8 +2009,6 @@ on_error:
 	return( 0 );
 }
 
-#endif /* defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT ) */
-
 /* The main program
  */
 #if defined( HAVE_WIDE_SYSTEM_CHARACTER )
@@ -2056,19 +2056,15 @@ int main(
 	 "libfmos_lzfse_read_block",
 	 fmos_test_lzfse_read_block);
 
+#endif /* defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT ) */
+
 	FMOS_TEST_RUN(
 	 "libfmos_lzfse_decompress",
 	 fmos_test_lzfse_decompress );
 
-#endif /* defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT ) */
-
 	return( EXIT_SUCCESS );
-
-#if defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT )
 
 on_error:
 	return( EXIT_FAILURE );
-
-#endif /* defined( __GNUC__ ) && !defined( LIBFMOS_DLL_IMPORT ) */
 }
 
