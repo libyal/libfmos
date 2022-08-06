@@ -232,7 +232,7 @@ int libfmos_lzfse_bit_stream_get_value(
 
 		return( -1 );
 	}
-	if( number_of_bits > (uint8_t) 32 )
+	if( number_of_bits > (uint8_t) 24 )
 	{
 		libcerror_error_set(
 		 error,

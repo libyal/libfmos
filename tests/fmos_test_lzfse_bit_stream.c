@@ -574,7 +574,7 @@ int fmos_test_lzfse_bit_stream_get_value(
 
 	result = libfmos_lzfse_bit_stream_get_value(
 	          bit_stream,
-	          32,
+	          24,
 	          &value_32bit,
 	          &error );
 
@@ -586,7 +586,7 @@ int fmos_test_lzfse_bit_stream_get_value(
 	FMOS_TEST_ASSERT_EQUAL_UINT32(
 	 "value_32bit",
 	 value_32bit,
-	 (uint32_t) 0x9f45b083UL );
+	 (uint32_t) 0x009f45b0UL );
 
 	FMOS_TEST_ASSERT_IS_NULL(
 	 "error",
@@ -595,7 +595,7 @@ int fmos_test_lzfse_bit_stream_get_value(
 	FMOS_TEST_ASSERT_EQUAL_SIZE(
 	 "bit_stream->byte_stream_offset",
 	 bit_stream->byte_stream_offset,
-	 (size_t) 29 );
+	 (size_t) 30 );
 
 	FMOS_TEST_ASSERT_EQUAL_UINT32(
 	 "bit_stream->bit_buffer",
@@ -611,7 +611,7 @@ int fmos_test_lzfse_bit_stream_get_value(
 	 */
 	result = libfmos_lzfse_bit_stream_get_value(
 	          NULL,
-	          32,
+	          24,
 	          &value_32bit,
 	          &error );
 
@@ -647,7 +647,7 @@ int fmos_test_lzfse_bit_stream_get_value(
 
 	result = libfmos_lzfse_bit_stream_get_value(
 	          bit_stream,
-	          32,
+	          24,
 	          NULL,
 	          &error );
 
@@ -668,7 +668,7 @@ int fmos_test_lzfse_bit_stream_get_value(
 
 	result = libfmos_lzfse_bit_stream_get_value(
 	          bit_stream,
-	          32,
+	          24,
 	          &value_32bit,
 	          &error );
 

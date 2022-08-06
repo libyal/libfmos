@@ -32,15 +32,6 @@
 #include "libfmos_lzfse_decoder.h"
 #include "libfmos_lzvn.h"
 
-#define LIBFMOS_LZFSE_ENDOFSTREAM_BLOCK_MARKER		0x24787662UL
-#define LIBFMOS_LZFSE_UNCOMPRESSED_BLOCK_MARKER		0x2d787662UL
-#define LIBFMOS_LZFSE_COMPRESSED_BLOCK_V1_MARKER	0x31787662UL
-#define LIBFMOS_LZFSE_COMPRESSED_BLOCK_V2_MARKER	0x32787662UL
-#define LIBFMOS_LZFSE_COMPRESSED_BLOCK_LZVN_MARKER	0x6e787662UL
-
-#define LIBFMOS_LZFSE_MATCHES_PER_BLOCK			10000
-#define LIBFMOS_LZFSE_LITERALS_PER_BLOCK		( 4 * LIBFMOS_LZFSE_MATCHES_PER_BLOCK )
-
 const uint8_t libfmos_lzfse_frequency_number_of_bits_table[ 32 ] = {
       2, 3, 2, 5, 2, 3, 2, 8, 2, 3, 2, 5, 2, 3, 2, 14,
       2, 3, 2, 5, 2, 3, 2, 8, 2, 3, 2, 5, 2, 3, 2, 14 };
@@ -1218,7 +1209,7 @@ int libfmos_lzfse_read_literal_values(
 
 		return( -1 );
 	}
-	if( decoder->number_of_literals > (uint32_t) INT32_MAX )
+	if( decoder->number_of_literals > (uint32_t) ( LIBFMOS_LZFSE_LITERALS_PER_BLOCK + 64 ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -1429,39 +1420,6 @@ int libfmos_lzfse_read_lmd_values(
 	m_value_state = decoder->m_value_state;
 	d_value_state = decoder->d_value_state;
 
-	if( l_value_state > LIBFMOS_LZFSE_NUMBER_OF_L_VALUE_STATES )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: invalid L value state value out of bounds.",
-		 function );
-
-		return( -1 );
-	}
-	if( m_value_state > LIBFMOS_LZFSE_NUMBER_OF_M_VALUE_STATES )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: invalid M value state value out of bounds.",
-		 function );
-
-		return( -1 );
-	}
-	if( d_value_state > LIBFMOS_LZFSE_NUMBER_OF_D_VALUE_STATES )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: invalid D value state value out of bounds.",
-		 function );
-
-		return( -1 );
-	}
 	if( libfmos_lzfse_bit_stream_get_value(
 	     bit_stream,
 	     -1 * decoder->lmd_values_bits,
@@ -1481,6 +1439,18 @@ int libfmos_lzfse_read_lmd_values(
 	     lmd_value_index < decoder->number_of_lmd_values;
 	     lmd_value_index++ )
 	{
+		if( ( l_value_state < 0 )
+		 || ( l_value_state >= LIBFMOS_LZFSE_NUMBER_OF_L_VALUE_STATES ) )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
+			 "%s: invalid L value state value out of bounds.",
+			 function );
+
+			return( -1 );
+		}
 		value_decoder_entry = &( decoder->l_value_decoder_table[ l_value_state ] );
 
 		if( libfmos_lzfse_bit_stream_get_value(
@@ -1515,6 +1485,18 @@ int libfmos_lzfse_read_lmd_values(
 			 l_value_state );
 		}
 #endif
+		if( ( m_value_state < 0 )
+		 || ( m_value_state >= LIBFMOS_LZFSE_NUMBER_OF_M_VALUE_STATES ) )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
+			 "%s: invalid M value state value out of bounds.",
+			 function );
+
+			return( -1 );
+		}
 		value_decoder_entry = &( decoder->m_value_decoder_table[ m_value_state ] );
 
 		if( libfmos_lzfse_bit_stream_get_value(
@@ -1549,6 +1531,18 @@ int libfmos_lzfse_read_lmd_values(
 			 m_value_state );
 		}
 #endif
+		if( ( d_value_state < 0 )
+		 || ( d_value_state >= LIBFMOS_LZFSE_NUMBER_OF_D_VALUE_STATES ) )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
+			 "%s: invalid D value state value out of bounds.",
+			 function );
+
+			return( -1 );
+		}
 		value_decoder_entry = &( decoder->d_value_decoder_table[ d_value_state ] );
 
 		if( libfmos_lzfse_bit_stream_get_value(
@@ -1569,17 +1563,6 @@ int libfmos_lzfse_read_lmd_values(
 		d_value_state = (int32_t) value_decoder_entry->delta + (int32_t) ( value_32bit >> value_decoder_entry->value_bits );
 		safe_d_value  = value_decoder_entry->value_base + (int32_t) ( value_32bit & value_decoder_entry->value_bitmask );
 
-		if( d_value_state > LIBFMOS_LZFSE_NUMBER_OF_D_VALUE_STATES )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
-			 "%s: invalid D value state value out of bounds.",
-			 function );
-
-			return( -1 );
-		}
 #if defined( HAVE_DEBUG_OUTPUT )
 		if( libcnotify_verbose != 0 )
 		{
@@ -1598,7 +1581,10 @@ int libfmos_lzfse_read_lmd_values(
 		{
 			d_value = safe_d_value;
 		}
-		if( l_value > (int32_t) remaining_uncompressed_data_size )
+		if( ( l_value < 0 )
+		 || ( l_value > (int32_t) remaining_uncompressed_data_size )
+		 || ( l_value >= ( LIBFMOS_LZFSE_LITERALS_PER_BLOCK + 64 ) )
+		 || ( literal_value_index > ( ( LIBFMOS_LZFSE_LITERALS_PER_BLOCK + 64 ) - l_value ) ) )
 		{
 			libcerror_error_set(
 			 error,
@@ -1618,7 +1604,8 @@ int libfmos_lzfse_read_lmd_values(
 		literal_value_index              += l_value;
 		remaining_uncompressed_data_size -= l_value;
 
-		if( m_value > (int32_t) remaining_uncompressed_data_size )
+		if( ( m_value < 0 )
+		 || ( m_value > (int32_t) remaining_uncompressed_data_size ) )
 		{
 			libcerror_error_set(
 			 error,
@@ -1629,7 +1616,9 @@ int libfmos_lzfse_read_lmd_values(
 
 			return( -1 );
 		}
-		if( d_value > (int32_t) safe_uncompressed_data_offset )
+		if( ( d_value < 0 )
+		 || ( d_value > (int32_t) safe_uncompressed_data_offset )
+		 || ( ( safe_uncompressed_data_offset - d_value ) > uncompressed_data_size ) )
 		{
 			libcerror_error_set(
 			 error,
@@ -1760,7 +1749,7 @@ int libfmos_lzfse_decompress(
 		{
 			break;
 		}
-		if( compressed_data_offset > ( compressed_data_size + 4 ) )
+		if( compressed_data_offset > ( compressed_data_size - 4 ) )
 		{
 			libcerror_error_set(
 			 error,
@@ -1858,7 +1847,7 @@ int libfmos_lzfse_decompress(
 
 			goto on_error;
 		}
-		if( compressed_data_offset > ( compressed_data_size + 4 ) )
+		if( compressed_data_offset > ( compressed_data_size - 4 ) )
 		{
 			libcerror_error_set(
 			 error,
@@ -1955,7 +1944,7 @@ int libfmos_lzfse_decompress(
 				break;
 
 			case LIBFMOS_LZFSE_COMPRESSED_BLOCK_LZVN_MARKER:
-				if( compressed_data_offset > ( compressed_data_size + 4 ) )
+				if( compressed_data_offset > ( compressed_data_size - 4 ) )
 				{
 					libcerror_error_set(
 					 error,
@@ -1986,6 +1975,18 @@ int libfmos_lzfse_decompress(
 #endif
 				break;
 		}
+		if( ( (size_t) uncompressed_block_size > safe_uncompressed_data_size )
+		 || ( uncompressed_data_offset > ( safe_uncompressed_data_size - uncompressed_block_size ) ) )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+			 "%s: uncompressed block size value exceeds uncompressed data size.",
+			 function );
+
+			goto on_error;
+		}
 		switch( block_marker )
 		{
 			case LIBFMOS_LZFSE_UNCOMPRESSED_BLOCK_MARKER:
@@ -1996,19 +1997,7 @@ int libfmos_lzfse_decompress(
 					 error,
 					 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 					 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-					 "%s: literal size value exceeds compressed data size.",
-					 function );
-
-					goto on_error;
-				}
-				if( ( (size_t) uncompressed_block_size > safe_uncompressed_data_size )
-				 || ( uncompressed_data_offset > ( safe_uncompressed_data_size - uncompressed_block_size ) ) )
-				{
-					libcerror_error_set(
-					 error,
-					 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-					 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-					 "%s: literal size value exceeds uncompressed data size.",
+					 "%s: uncompressed block size value exceeds compressed data size.",
 					 function );
 
 					goto on_error;
@@ -2151,6 +2140,18 @@ int libfmos_lzfse_decompress(
 				break;
 
 			case LIBFMOS_LZFSE_COMPRESSED_BLOCK_LZVN_MARKER:
+				if( ( (size_t) compressed_block_size > compressed_data_size )
+				 || ( compressed_data_offset > ( compressed_data_size - compressed_block_size ) ) )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+					 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+					 "%s: compressed block size value exceeds compressed data size.",
+					 function );
+
+					goto on_error;
+				}
 				safe_uncompressed_block_size = (size_t) uncompressed_block_size;
 
 				if( libfmos_lzvn_decompress(
