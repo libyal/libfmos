@@ -1260,6 +1260,19 @@ int libfmos_lzfse_read_literal_values(
 		     literal_decoder_index++ )
 		{
 			literal_state = literal_states[ literal_decoder_index ];
+
+			if( ( literal_state < 0 )
+			 || ( literal_state >= LIBFMOS_LZFSE_NUMBER_OF_LITERAL_STATES ) )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
+				 "%s: invalid literal state value out of bounds.",
+				 function );
+
+				return( -1 );
+			}
 			decoder_entry = &( decoder->literal_decoder_table[ literal_state ] );
 
 			if( libfmos_lzfse_bit_stream_get_value(
@@ -1742,6 +1755,20 @@ int libfmos_lzfse_decompress(
 		 function );
 
 		return( -1 );
+	}
+	if( memory_set(
+	     frequency_table,
+	     0,
+	     sizeof( uint16_t ) * 360 ) == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_MEMORY,
+		 LIBCERROR_MEMORY_ERROR_SET_FAILED,
+		 "%s: unable to clear frequency table.",
+		 function );
+
+		goto on_error;
 	}
 	while( compressed_data_offset < compressed_data_size )
 	{
