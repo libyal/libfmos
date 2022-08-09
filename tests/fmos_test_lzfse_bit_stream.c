@@ -333,110 +333,6 @@ on_error:
 	return( 0 );
 }
 
-/* Tests the libfmos_lzfse_bit_stream_read function
- * Returns 1 if successful or 0 if not
- */
-int fmos_test_lzfse_bit_stream_read(
-     void )
-{
-	libcerror_error_t *error               = NULL;
-	libfmos_lzfse_bit_stream_t *bit_stream = NULL;
-	int result                             = 0;
-
-	/* Initialize test
-	 */
-	result = libfmos_lzfse_bit_stream_initialize(
-	          &bit_stream,
-	          &( fmos_test_lzfse_bit_stream_compressed_data[ 163 ] ),
-	          35,
-	          &error );
-
-	FMOS_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FMOS_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	/* Test regular cases
-	 */
-	result = libfmos_lzfse_bit_stream_read(
-	          bit_stream,
-	          8,
-	          &error );
-
-	FMOS_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FMOS_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	FMOS_TEST_ASSERT_EQUAL_SIZE(
-	 "bit_stream->byte_stream_offset",
-	 bit_stream->byte_stream_offset,
-	 (size_t) 34 );
-
-	FMOS_TEST_ASSERT_EQUAL_UINT32(
-	 "bit_stream->bit_buffer",
-	 bit_stream->bit_buffer,
-	 (uint32_t) 0x00000003UL );
-
-	FMOS_TEST_ASSERT_EQUAL_UINT8(
-	 "bit_stream->bit_buffer_size",
-	 bit_stream->bit_buffer_size,
-	 (uint8_t) 8 );
-
-	/* Test error cases
-	 */
-	result = libfmos_lzfse_bit_stream_read(
-	          NULL,
-	          8,
-	          &error );
-
-	FMOS_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
-
-	FMOS_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
-
-	libcerror_error_free(
-	 &error );
-
-	/* Clean up
-	 */
-	result = libfmos_lzfse_bit_stream_free(
-	          &bit_stream,
-	          &error );
-
-	FMOS_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FMOS_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	return( 1 );
-
-on_error:
-	if( bit_stream != NULL )
-	{
-		libfmos_lzfse_bit_stream_free(
-		 &bit_stream,
-		 NULL );
-	}
-	return( 0 );
-}
-
 /* Tests the libfmos_lzfse_bit_stream_get_value function
  * Returns 1 if successful or 0 if not
  */
@@ -739,10 +635,6 @@ int main(
 	FMOS_TEST_RUN(
 	 "libfmos_lzfse_bit_stream_free",
 	 fmos_test_lzfse_bit_stream_free );
-
-	FMOS_TEST_RUN(
-	 "libfmos_lzfse_bit_stream_read",
-	 fmos_test_lzfse_bit_stream_read );
 
 	FMOS_TEST_RUN(
 	 "libfmos_lzfse_bit_stream_get_value",

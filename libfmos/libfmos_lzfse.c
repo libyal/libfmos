@@ -1236,6 +1236,18 @@ int libfmos_lzfse_read_literal_values(
 	literal_states[ 2 ] = decoder->literal_states[ 2 ];
 	literal_states[ 3 ] = decoder->literal_states[ 3 ];
 
+	if( ( decoder->literal_bits < (int32_t) -32 )
+	 || ( decoder->literal_bits > 0 ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+		 "%s: invalid decoder - literal bits value out of bounds.",
+		 function );
+
+		return( -1 );
+	}
 	if( libfmos_lzfse_bit_stream_get_value(
 	     bit_stream,
 	     -1 * decoder->literal_bits,
@@ -1433,6 +1445,18 @@ int libfmos_lzfse_read_lmd_values(
 	m_value_state = decoder->m_value_state;
 	d_value_state = decoder->d_value_state;
 
+	if( ( decoder->lmd_values_bits < (int32_t) -32 )
+	 || ( decoder->lmd_values_bits > 0 ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+		 "%s: invalid decoder - L, M, D values bits value out of bounds.",
+		 function );
+
+		return( -1 );
+	}
 	if( libfmos_lzfse_bit_stream_get_value(
 	     bit_stream,
 	     -1 * decoder->lmd_values_bits,

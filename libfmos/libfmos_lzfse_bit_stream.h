@@ -67,11 +67,6 @@ int libfmos_lzfse_bit_stream_free(
      libfmos_lzfse_bit_stream_t **bit_stream,
      libcerror_error_t **error );
 
-int libfmos_lzfse_bit_stream_read(
-     libfmos_lzfse_bit_stream_t *bit_stream,
-     uint8_t number_of_bits,
-     libcerror_error_t **error );
-
 int libfmos_lzfse_bit_stream_get_value(
      libfmos_lzfse_bit_stream_t *bit_stream,
      uint8_t number_of_bits,
