@@ -1,4 +1,6 @@
 environment:
+  PYPI_TOKEN:
+    secure: VHuZiUWgTqTciKE2nsv/LmqcB8QD3CJPnBdLjfySy6Lgl9+RNoRqANqjb6bGfZkl8yeje9SOZRiCnqoUoqy5BVezyDAYzvNiJL+MOqSwYToiUlMTqZi9aZrFvjXiX5x35NfdSU6R/hb5OYq8ZuE5CwrJRiiKHV06pzxhdHDqzgK8n4BfwDvk+bRty/IJBiqq1ZiPcD5YN7q5PCMxZPJXBXTVvqaFnDvWxI2gNRYYgUt6nS78jFkGbx6EVdhdUGRMiF2KmaDNqc2MyrQKlH2y3ZZEzvjjj6ajhH2YoZcwJf2COKWzNn+qqyuKrwlvNcf7jBYaTM93ihQUD5N/II2gcfwkfSPececjbKNgb7cf8YURq7fY3aXm1jRm9ByhQFVh
   matrix:
   - TARGET: vs2008
     BUILD_ENVIRONMENT: msbuild
@@ -189,7 +191,7 @@ build_script:
     .\build.ps1 -VisualStudioVersion 2019 -VSToolsOptions "--extend-with-x64 --no-python-dll --with-dokany" }
 - sh: if test ${BUILD_ENVIRONMENT} = "xcode" || test ${BUILD_ENVIRONMENT} = "python"; then export PATH="/usr/local/opt/gettext/bin:$PATH"; export SED="/usr/local/bin/gsed"; tests/build.sh ${CONFIGURE_OPTIONS}; fi
 - cmd: if [%BUILD_ENVIRONMENT%]==[python] (
-    "%PYTHON%" setup.py bdist_msi bdist_wheel )
+    "%PYTHON%" setup.py bdist_wheel )
 - sh: if test ${BUILD_ENVIRONMENT} = "python"; then ${PYTHON} setup.py bdist_wheel; fi
 - cmd: if [%BUILD_ENVIRONMENT%]==[cygwin] (
     xcopy /i /q /s C:\projects\libfmos C:\cygwin\home\appveyor\libfmos &&
@@ -221,4 +223,9 @@ after_test:
 
 artifacts:
 - path: dist\*.whl
+
+deploy_script:
+- ps: If ($env:APPVEYOR_REPO_TAG -eq "true" -and $isWindows -and $env:BUILD_ENVIRONMENT -eq "python") {
+    Invoke-Expression "${env:PYTHON} -m twine upload dist/*.whl --username __token__ --password ${env:PYPI_TOKEN} --skip-existing" }
+- sh: if test ${APPVEYOR_REPO_TAG} = "true" && test ${BUILD_ENVIRONMENT} = "python"; then ${PYTHON} -m twine upload dist/*.whl --username __token__ --password ${PYPI_TOKEN} --skip-existing; fi
 
