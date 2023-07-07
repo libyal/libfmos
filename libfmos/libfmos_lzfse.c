@@ -312,7 +312,7 @@ int libfmos_lzfse_build_value_decoder_table(
 			value_decoder_entry->value_bits     = value_bits;
 			value_decoder_entry->value_base     = value_base;
 			value_decoder_entry->value_bitmask  = ( (uint32_t) 1UL << value_bits ) - 1;
-			value_decoder_entry->number_of_bits = number_of_bits + value_bits;
+			value_decoder_entry->number_of_bits = (uint8_t) ( number_of_bits + value_bits );
 
 			if( decoder_weight < base_decoder_weight )
 			{
@@ -1250,7 +1250,7 @@ int libfmos_lzfse_read_literal_values(
 	}
 	if( libfmos_lzfse_bit_stream_get_value(
 	     bit_stream,
-	     -1 * decoder->literal_bits,
+	     (uint8_t) ( -1 * decoder->literal_bits ),
 	     &value_32bit,
 	     error ) != 1 )
 	{
@@ -1459,7 +1459,7 @@ int libfmos_lzfse_read_lmd_values(
 	}
 	if( libfmos_lzfse_bit_stream_get_value(
 	     bit_stream,
-	     -1 * decoder->lmd_values_bits,
+	     (uint8_t) ( -1 * decoder->lmd_values_bits ),
 	     &value_32bit,
 	     error ) != 1 )
 	{

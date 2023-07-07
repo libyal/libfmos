@@ -2,7 +2,7 @@ AC_PREREQ([2.71])
 
 AC_INIT(
  [libfmos],
- [20230619],
+ [20230707],
  [joachim.metz@gmail.com])
 
 AC_CONFIG_SRCDIR(
