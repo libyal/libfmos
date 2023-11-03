@@ -43,11 +43,13 @@ MAINTAINERCLEANFILES = \
 	Makefile.in
 
 distclean: clean
-	/bin/rm -f libfmos_definitions.h
-	/bin/rm -f libfmos.rc
-	/bin/rm -f Makefile
+	-rm -f libfmos_definitions.h
+	-rm -f libfmos.rc
+	-rm -f Makefile
 
-splint:
+sources-local: $(BUILT_SOURCES)
+
+splint-local:
 	@echo "Running splint on libfmos ..."
 	-splint -preproc -redef $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(libfmos_la_SOURCES)
 

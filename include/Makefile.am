@@ -18,9 +18,9 @@ MAINTAINERCLEANFILES = \
 	Makefile.in
 
 distclean: clean
-	/bin/rm -f libfmos.h
-	/bin/rm -f libfmos/definitions.h
-	/bin/rm -f libfmos/features.h
-	/bin/rm -f libfmos/types.h
-	/bin/rm -f Makefile
+	-rm -f libfmos.h
+	-rm -f libfmos/definitions.h
+	-rm -f libfmos/features.h
+	-rm -f libfmos/types.h
+	-rm -f Makefile
 

@@ -44,8 +44,8 @@ MAINTAINERCLEANFILES = \
 	Makefile.in
 
 clean-local:
-	/bin/rm -f pyfmos*.[ch]
+	-rm -f pyfmos*.[ch]
 
 distclean: clean
-	/bin/rm -f Makefile
+	-rm -f Makefile
 
