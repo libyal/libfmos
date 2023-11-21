@@ -8,8 +8,6 @@ SUBDIRS = \
 	libcnotify \
 	libfmos \
 	pyfmos \
-	pyfmos-python2 \
-	pyfmos-python3 \
 	po \
 	manuals \
 	tests \

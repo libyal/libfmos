@@ -2,7 +2,7 @@ AC_PREREQ([2.71])
 
 AC_INIT(
  [libfmos],
- [20231103],
+ [20231121],
  [joachim.metz@gmail.com])
 
 AC_CONFIG_SRCDIR(
@@ -77,7 +77,7 @@ dnl Check if libfmos Python bindings (pyfmos) required headers and functions are
 AX_PYTHON_CHECK_ENABLE
 
 AS_IF(
-  [test "x${ac_cv_enable_python}" != xno || test "x${ac_cv_enable_python2}" != xno || test "x${ac_cv_enable_python3}" != xno],
+  [test "x${ac_cv_enable_python}" != xno],
   [dnl Headers included in pyfmos/pyfmos_error.c
   AC_CHECK_HEADERS([stdarg.h varargs.h])
 
@@ -126,8 +126,6 @@ AC_CONFIG_FILES([libcthreads/Makefile])
 AC_CONFIG_FILES([libcnotify/Makefile])
 AC_CONFIG_FILES([libfmos/Makefile])
 AC_CONFIG_FILES([pyfmos/Makefile])
-AC_CONFIG_FILES([pyfmos-python2/Makefile])
-AC_CONFIG_FILES([pyfmos-python3/Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([po/Makevars])
 AC_CONFIG_FILES([manuals/Makefile])
