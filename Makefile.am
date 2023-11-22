@@ -23,6 +23,7 @@ DPKG_FILES = \
 	dpkg/rules \
 	dpkg/libfmos.install \
 	dpkg/libfmos-dev.install \
+	dpkg/libfmos-python3.install \
 	dpkg/source/format
 
 GETTEXT_FILES = \
