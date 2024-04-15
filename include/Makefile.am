@@ -14,13 +14,11 @@ EXTRA_DIST = \
 	libfmos/features.h.in \
 	libfmos/types.h.in
 
-MAINTAINERCLEANFILES = \
+DISTCLEANFILES = \
+	libfmos.h \
+	libfmos/definitions.h \
+	libfmos/features.h \
+	libfmos/types.h \
+	Makefile \
 	Makefile.in
-
-distclean: clean
-	-rm -f libfmos.h
-	-rm -f libfmos/definitions.h
-	-rm -f libfmos/features.h
-	-rm -f libfmos/types.h
-	-rm -f Makefile
 

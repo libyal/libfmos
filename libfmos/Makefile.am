@@ -1,6 +1,6 @@
 AM_CPPFLAGS = \
-	-I$(top_srcdir)/include \
-	-I$(top_srcdir)/common \
+	-I../include -I$(top_srcdir)/include \
+	-I../common -I$(top_srcdir)/common \
 	@LIBCERROR_CPPFLAGS@ \
 	@LIBCTHREADS_CPPFLAGS@ \
 	@LIBCNOTIFY_CPPFLAGS@ \
@@ -39,13 +39,11 @@ EXTRA_DIST = \
 	libfmos.rc \
 	libfmos.rc.in
 
-MAINTAINERCLEANFILES = \
+DISTCLEANFILES = \
+	libfmos_definitions.h \
+	libfmos.rc \
+	Makefile \
 	Makefile.in
-
-distclean: clean
-	-rm -f libfmos_definitions.h
-	-rm -f libfmos.rc
-	-rm -f Makefile
 
 sources-local: $(BUILT_SOURCES)
 

@@ -137,6 +137,7 @@ stamp-h[1-9]
 /tests/fmos_test_lzvn
 /tests/fmos_test_notify
 /tests/fmos_test_support
+/tests/notify_stream.log
 /tests/tmp*
 
 # Local library dependencies specific files
