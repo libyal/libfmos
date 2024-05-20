@@ -1,6 +1,6 @@
 dnl Checks for required headers and functions
 dnl
-dnl Version: 20220804
+dnl Version: 20240413
 
 dnl Function to detect if libfmos dependencies are available
 AC_DEFUN([AX_LIBFMOS_CHECK_LOCAL],
