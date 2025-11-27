@@ -24,7 +24,7 @@ BEGIN
       VALUE "FileDescription",		"Library to support common Mac OS specific formats\0"
       VALUE "FileVersion",		"@VERSION@" "\0"
       VALUE "InternalName",		"libfmos.dll\0"
-      VALUE "LegalCopyright",		"(C) 2019-2024, Joachim Metz <joachim.metz@gmail.com>\0"
+      VALUE "LegalCopyright",		"(C) 2019-2025, Joachim Metz <joachim.metz@gmail.com>\0"
       VALUE "OriginalFilename",		"libfmos.dll\0"
       VALUE "ProductName",		"libfmos\0"
       VALUE "ProductVersion",		"@VERSION@" "\0"

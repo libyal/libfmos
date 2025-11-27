@@ -1,7 +1,7 @@
 /*
  * Library to support common Mac OS specific formats
  *
- * Copyright (C) 2019-2024, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2019-2025, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
