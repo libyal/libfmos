@@ -1,7 +1,7 @@
 /*
  * LZFSE (un)compression functions
  *
- * Copyright (C) 2019-2025, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2019-2026, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -69,13 +69,23 @@ const int32_t libfmos_lzfse_m_value_base_table[ LIBFMOS_LZFSE_NUMBER_OF_M_VALUE_
        	16, 24, 56, 312 };
 
 #if defined( _MSC_VER )
+#if defined( _M_ARM ) || defined( _M_ARM64 )
+#define libfmos_lzfse_count_leading_zeros( value ) \
+	if ( value == 0 ) { \
+		32; \
+	} else { \
+		unsigned long bit_index = 0; \
+		_BitScanReverse( &bit_index, (unsigned int) value ); \
+		32 - bit_index - 1; \
+	}
+#else
 #define libfmos_lzfse_count_leading_zeros( value ) \
 	__lzcnt( (unsigned int) value )
-
+#endif /* defined( _M_ARM ) || defined( _M_ARM64 ) */
 #else
 #define libfmos_lzfse_count_leading_zeros( value ) \
 	__builtin_clz( (unsigned int) value )
-#endif
+#endif /* defined( _MSC_VER ) */
 
 /* Builds a decoder table
  * Returns 1 on success or -1 on error
