@@ -70,21 +70,20 @@ const int32_t libfmos_lzfse_m_value_base_table[ LIBFMOS_LZFSE_NUMBER_OF_M_VALUE_
 
 #if defined( _MSC_VER )
 #if defined( _M_ARM ) || defined( _M_ARM64 )
-#define libfmos_lzfse_count_leading_zeros( value ) \
-	if ( value == 0 ) { \
-		32; \
-	} else { \
+#define libfmos_lzfse_count_leading_zeros( value, result ) \
+	result = 32; \
+	if ( value > 0 ) { \
 		unsigned long bit_index = 0; \
 		_BitScanReverse( &bit_index, (unsigned int) value ); \
-		32 - bit_index - 1; \
+		result -= bit_index + 1; \
 	}
 #else
-#define libfmos_lzfse_count_leading_zeros( value ) \
-	__lzcnt( (unsigned int) value )
+#define libfmos_lzfse_count_leading_zeros( value, result ) \
+	result = (int) __lzcnt( (unsigned int) value )
 #endif /* defined( _M_ARM ) || defined( _M_ARM64 ) */
 #else
-#define libfmos_lzfse_count_leading_zeros( value ) \
-	__builtin_clz( (unsigned int) value )
+#define libfmos_lzfse_count_leading_zeros( value, result ) \
+	result = (int) __builtin_clz( (unsigned int) value )
 #endif /* defined( _MSC_VER ) */
 
 /* Builds a decoder table
@@ -142,7 +141,9 @@ int libfmos_lzfse_build_decoder_table(
 
 		return( -1 );
 	}
-	number_of_leading_zeros = (int) libfmos_lzfse_count_leading_zeros( number_of_states );
+	libfmos_lzfse_count_leading_zeros(
+	 number_of_states,
+	 number_of_leading_zeros );
 
 	for( symbol = 0;
 	     symbol < number_of_symbols;
@@ -169,7 +170,11 @@ int libfmos_lzfse_build_decoder_table(
 
 			return( -1 );
 		}
-		number_of_bits = (int) libfmos_lzfse_count_leading_zeros( frequency ) - number_of_leading_zeros;
+		libfmos_lzfse_count_leading_zeros(
+		 frequency,
+		 number_of_bits );
+
+		number_of_bits -= number_of_leading_zeros;
 
 		base_decoder_weight = ( ( 2 * number_of_states ) >> number_of_bits ) - frequency;
 
@@ -279,7 +284,9 @@ int libfmos_lzfse_build_value_decoder_table(
 
 		return( -1 );
 	}
-	number_of_leading_zeros = (int) libfmos_lzfse_count_leading_zeros( number_of_states );
+	libfmos_lzfse_count_leading_zeros(
+	 number_of_states,
+	 number_of_leading_zeros );
 
 	for( symbol = 0;
 	     symbol < number_of_symbols;
@@ -306,7 +313,11 @@ int libfmos_lzfse_build_value_decoder_table(
 
 			return( -1 );
 		}
-		number_of_bits = (int) libfmos_lzfse_count_leading_zeros( frequency ) - number_of_leading_zeros;
+		libfmos_lzfse_count_leading_zeros(
+		 frequency,
+		 number_of_bits );
+
+	        number_of_bits -= number_of_leading_zeros;
 
 		base_decoder_weight = ( ( 2 * number_of_states ) >> number_of_bits ) - frequency;
 
