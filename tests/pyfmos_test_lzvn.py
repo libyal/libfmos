@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Python-bindings LZVN (un)compression functions test script
 #

@@ -30,12 +30,6 @@
 
 #include <libfmos/extern.h>
 
-#if defined( __CYGWIN__ ) || defined( __MINGW32__ )
-#define LIBFMOS_EXTERN_VARIABLE	extern
-#else
-#define LIBFMOS_EXTERN_VARIABLE	LIBFMOS_EXTERN
-#endif
-
 #else
 #define LIBFMOS_EXTERN		/* extern */
 #define LIBFMOS_EXTERN_VARIABLE	extern

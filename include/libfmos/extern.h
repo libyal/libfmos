@@ -31,14 +31,17 @@
  */
 #if defined( LIBFMOS_DLL_EXPORT )
 #define LIBFMOS_EXTERN __declspec(dllexport)
+#define LIBFMOS_EXTERN_VARIABLE extern __declspec(dllexport)
 
 #elif defined( LIBFMOS_DLL_IMPORT )
-#define LIBFMOS_EXTERN extern __declspec(dllimport)
+#define LIBFMOS_EXTERN __declspec(dllimport)
+#define LIBFMOS_EXTERN_VARIABLE extern __declspec(dllimport)
 
 #else
 #define LIBFMOS_EXTERN extern
+#define LIBFMOS_EXTERN_VARIABLE extern
 
-#endif
+#endif /* defined( LIBFMOS_DLL_EXPORT ) */
 
 #endif /* !defined( _LIBFMOS_EXTERN_H ) */
 
