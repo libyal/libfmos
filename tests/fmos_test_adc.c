@@ -45,6 +45,36 @@ uint8_t fmos_test_adc_compressed_data[ 10 ] = {
 uint8_t fmos_test_adc_uncompressed_data[ 11 ] = {
 	0xfe, 0xed, 0xfa, 0xce, 0xce, 0xce, 0xce, 0xfe, 0xed, 0xfa, 0xce };
 
+uint8_t fmos_test_adc_literal_compressed_data[ 4 ] = {
+	0x81, 0x45, 0x56, 0x00 };
+
+uint8_t fmos_test_adc_literal_expected[ 2 ] = {
+	0x45, 0x56 };
+
+uint8_t fmos_test_adc_literal_size_compressed_data[ 2 ] = {
+	0x82, 0x00 };
+
+uint8_t fmos_test_adc_2byte_match_compressed_data[ 7 ] = {
+	0x82, 0x41, 0x42, 0x43, 0x40, 0x00, 0x02 };
+
+uint8_t fmos_test_adc_2byte_match_expected[ 7 ] = {
+	0x41, 0x42, 0x43, 0x41, 0x42, 0x43, 0x41 };
+
+uint8_t fmos_test_adc_1byte_match_compressed_data[ 5 ] = {
+	0x81, 0x41, 0x42, 0x04, 0x01 };
+
+uint8_t fmos_test_adc_1byte_match_expected[ 6 ] = {
+	0x41, 0x42, 0x41, 0x42, 0x41, 0x42 };
+
+uint8_t fmos_test_adc_truncated_compressed_data[ 3 ] = {
+	0x44, 0x01, 0x02 };
+
+uint8_t fmos_test_adc_short_buffer_compressed_data[ 5 ] = {
+	0x83, 0x00, 0x01, 0x02, 0x01 };
+
+uint8_t fmos_test_adc_short_buffer_expected[ 4 ] = {
+	0x00, 0x01, 0x02, 0x01 };
+
 /* Tests the libfmos_adc_decompress function
  * Returns 1 if successful or 0 if not
  */
@@ -86,6 +116,146 @@ int fmos_test_adc_decompress(
 	          uncompressed_data,
 	          fmos_test_adc_uncompressed_data,
 	          11 );
+
+	FMOS_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test regular cases - decompression of a literal
+	 */
+	uncompressed_data_size = 2;
+
+	result = libfmos_adc_decompress(
+	          fmos_test_adc_literal_compressed_data,
+	          3,
+	          uncompressed_data,
+	          &uncompressed_data_size,
+	          &error );
+
+	FMOS_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FMOS_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	FMOS_TEST_ASSERT_EQUAL_SIZE(
+	 "uncompressed_data_size",
+	 uncompressed_data_size,
+	 (size_t) 2 );
+
+	result = memory_compare(
+	          uncompressed_data,
+	          fmos_test_adc_literal_expected,
+	          2 );
+
+	FMOS_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test regular cases - decompression of a compression tuple
+	 */
+	uncompressed_data_size = 7;
+
+	result = libfmos_adc_decompress(
+	          fmos_test_adc_2byte_match_compressed_data,
+	          7,
+	          uncompressed_data,
+	          &uncompressed_data_size,
+	          &error );
+
+	FMOS_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FMOS_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	FMOS_TEST_ASSERT_EQUAL_SIZE(
+	 "uncompressed_data_size",
+	 uncompressed_data_size,
+	 (size_t) 7 );
+
+	result = memory_compare(
+	          uncompressed_data,
+	          fmos_test_adc_2byte_match_expected,
+	          7 );
+
+	FMOS_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test regular cases - decompression of a compression tuple
+	 */
+	uncompressed_data_size = 6;
+
+	result = libfmos_adc_decompress(
+	          fmos_test_adc_1byte_match_compressed_data,
+	          5,
+	          uncompressed_data,
+	          &uncompressed_data_size,
+	          &error );
+
+	FMOS_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FMOS_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	FMOS_TEST_ASSERT_EQUAL_SIZE(
+	 "uncompressed_data_size",
+	 uncompressed_data_size,
+	 (size_t) 6 );
+
+	result = memory_compare(
+	          uncompressed_data,
+	          fmos_test_adc_1byte_match_expected,
+	          6 );
+
+	FMOS_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test regular cases - uncompressed data smaller than compresssed data
+	 */
+	uncompressed_data_size = 4;
+
+	result = libfmos_adc_decompress(
+	          fmos_test_adc_short_buffer_compressed_data,
+	          5,
+	          uncompressed_data,
+	          &uncompressed_data_size,
+	          &error );
+
+	FMOS_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FMOS_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	FMOS_TEST_ASSERT_EQUAL_SIZE(
+	 "uncompressed_data_size",
+	 uncompressed_data_size,
+	 (size_t) 4 );
+
+	result = memory_compare(
+	          uncompressed_data,
+	          fmos_test_adc_short_buffer_expected,
+	          4 );
 
 	FMOS_TEST_ASSERT_EQUAL_INT(
 	 "result",
@@ -177,6 +347,52 @@ int fmos_test_adc_decompress(
 	result = libfmos_adc_decompress(
 	          fmos_test_adc_compressed_data,
 	          10,
+	          uncompressed_data,
+	          &uncompressed_data_size,
+	          &error );
+
+	FMOS_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FMOS_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Test error cases - decompression of a literal that is too large size for compressed data
+	 */
+	uncompressed_data_size = 4;
+
+	result = libfmos_adc_decompress(
+	          fmos_test_adc_literal_size_compressed_data,
+	          2,
+	          uncompressed_data,
+	          &uncompressed_data_size,
+	          &error );
+
+	FMOS_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FMOS_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Test error cases - truncated input
+	 */
+	uncompressed_data_size = 10;
+
+	result = libfmos_adc_decompress(
+	          fmos_test_adc_truncated_compressed_data,
+	          3,
 	          uncompressed_data,
 	          &uncompressed_data_size,
 	          &error );

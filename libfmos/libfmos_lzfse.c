@@ -364,11 +364,14 @@ int libfmos_lzfse_read_block_v1_header(
 {
 	static char *function              = "libfmos_lzfse_read_block_v1_header";
 	size_t safe_compressed_data_offset = 0;
-	uint32_t compressed_block_size     = 0;
 	uint32_t literal_bits              = 0;
 	uint32_t lmd_values_bits           = 0;
 	uint16_t table_index               = 0;
 	uint8_t literal_decoder_index      = 0;
+
+#if defined( HAVE_DEBUG_OUTPUT )
+	uint32_t compressed_block_size     = 0;
+#endif
 
 	if( decoder == NULL )
 	{
@@ -451,10 +454,11 @@ int libfmos_lzfse_read_block_v1_header(
 		 0 );
 	}
 #endif
+#if defined( HAVE_DEBUG_OUTPUT )
 	byte_stream_copy_to_uint32_little_endian(
 	 &( compressed_data[ safe_compressed_data_offset ] ),
 	 compressed_block_size );
-
+#endif
 	safe_compressed_data_offset += 4;
 
 	byte_stream_copy_to_uint32_little_endian(
@@ -1093,6 +1097,20 @@ int libfmos_lzfse_read_block(
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_INITIALIZE_FAILED,
 		 "%s: unable to create literals bit stream.",
+		 function );
+
+		goto on_error;
+	}
+	if( memory_set(
+	     literal_values,
+	     0,
+	     ( LIBFMOS_LZFSE_LITERALS_PER_BLOCK + 64 ) * sizeof( uint8_t ) ) == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_MEMORY,
+		 LIBCERROR_MEMORY_ERROR_SET_FAILED,
+		 "%s: unable to clear literal values.",
 		 function );
 
 		goto on_error;
