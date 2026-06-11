@@ -1,6 +1,6 @@
 # Files to ignore by git
 #
-# Version: 20251129
+# Version: 20260604
 
 # Generic auto-generated build files
 *~
@@ -128,7 +128,12 @@ stamp-h[1-9]
 /libfmos/libfmos.rc
 /libfmos/libfmos_definitions.h
 /pyproject.toml
+/tests/*.dir
 /tests/*.exe
+/tests/*.log
+/tests/*.tmp
+/tests/atconfig
+/tests/atlocal
 /tests/fmos_test_adc
 /tests/fmos_test_error
 /tests/fmos_test_lzfse
@@ -138,6 +143,10 @@ stamp-h[1-9]
 /tests/fmos_test_notify
 /tests/fmos_test_support
 /tests/notify_stream.log
+/tests/package.m4
+/tests/test_library
+/tests/test_manpages
+/tests/test_python_module
 /tests/tmp*
 
 # Local library dependencies specific files

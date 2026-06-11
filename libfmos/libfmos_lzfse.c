@@ -1511,7 +1511,7 @@ int libfmos_lzfse_read_lmd_values(
 
 		return( -1 );
 	}
-	for( lmd_value_index = 0; 
+	for( lmd_value_index = 0;
 	     lmd_value_index < decoder->number_of_lmd_values;
 	     lmd_value_index++ )
 	{
