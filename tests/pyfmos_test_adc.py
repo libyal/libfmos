@@ -25,21 +25,25 @@ import pyfmos
 
 
 class ADCFunctionsTests(unittest.TestCase):
-  """Tests the ADC (un)compression functions."""
+    """Tests the ADC (un)compression functions."""
 
-  _COMPRESSED_DATA = bytes(bytearray([
-      0x83, 0xfe, 0xed, 0xfa, 0xce, 0x00, 0x00, 0x40, 0x00, 0x06]))
+    # fmt: off
 
-  _UNCOMPRESSED_DATA = bytes(bytearray([
-      0xfe, 0xed, 0xfa, 0xce, 0xce, 0xce, 0xce, 0xfe, 0xed, 0xfa, 0xce]))
+    _COMPRESSED_DATA = bytes(bytearray([
+        0x83, 0xfe, 0xed, 0xfa, 0xce, 0x00, 0x00, 0x40, 0x00, 0x06]))
 
-  def test_adc_decompress(self):
-    """Tests the adc_decompress function."""
-    uncompressed_data = pyfmos.adc_decompress(
-        self._COMPRESSED_DATA, uncompressed_data_size=16)
+    _UNCOMPRESSED_DATA = bytes(bytearray([
+        0xfe, 0xed, 0xfa, 0xce, 0xce, 0xce, 0xce, 0xfe, 0xed, 0xfa, 0xce]))
 
-    self.assertEqual(uncompressed_data, self._UNCOMPRESSED_DATA)
+    # fmt: on
+
+    def test_adc_decompress(self):
+        """Tests the adc_decompress function."""
+        uncompressed_data = pyfmos.adc_decompress(
+            self._COMPRESSED_DATA, uncompressed_data_size=16
+        )
+        self.assertEqual(uncompressed_data, self._UNCOMPRESSED_DATA)
 
 
 if __name__ == "__main__":
-  unittest.main(verbosity=2)
+    unittest.main(verbosity=2)
