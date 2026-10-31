@@ -1657,6 +1657,18 @@ int libfmos_lzfse_read_lmd_values(
 		{
 			d_value = safe_d_value;
 		}
+		if( ( l_value <= 0 )
+		 && ( m_value <= 0 ) )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+			 "%s: invalid L and M values.",
+			 function );
+
+			return( -1 );
+		}
 		if( ( l_value < 0 )
 		 || ( l_value > (int32_t) remaining_uncompressed_data_size )
 		 || ( l_value >= ( LIBFMOS_LZFSE_LITERALS_PER_BLOCK + 64 ) )

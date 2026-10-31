@@ -2,7 +2,7 @@ AC_PREREQ([2.71])
 
 AC_INIT(
   [libfmos],
-  [20261009],
+  [20261031],
   [https://github.com/libyal/libfmos/issues])
 
 AC_CONFIG_SRCDIR(
